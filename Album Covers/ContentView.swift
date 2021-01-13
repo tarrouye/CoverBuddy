@@ -12,33 +12,45 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Cover.id, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var library: FetchedResults<Cover>
 
     var body: some View {
-        List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+        NavigationView {
+            List {
+                ForEach(library) { item in
+                    Text("Item at \(item.backgroundImgURL ?? "missing value")")
+                }
+                .onDelete(perform: deleteItems)
             }
-            .onDelete(perform: deleteItems)
-        }
-        .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
-
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
+            .toolbar {
+                #if os(iOS)
+                HStack {
+                    PillButton(systemImage: "plus") {
+                        addItem()
+                    }
+                    
+                EditButton()
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 2)
+                    .background(Color(UIColor.secondarySystemFill))
+                    .foregroundColor(Color(UIColor.label))
+                    .cornerRadius(15)
+                }
+                #endif
             }
+            .navigationBarTitle("Covers")
         }
     }
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            // Create new item
+            let coverItem = CoverFromProperties(allCollections[0].templates[Int.random(in: 0...10)])
 
+
+            // save managedObjectContext
             do {
                 try viewContext.save()
             } catch {
@@ -52,7 +64,7 @@ struct ContentView: View {
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+            offsets.map { library[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
@@ -65,13 +77,6 @@ struct ContentView: View {
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

@@ -13,6 +13,24 @@
 		3111448B25AA963D0005E717 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3111448A25AA963D0005E717 /* Preview Assets.xcassets */; };
 		3111448D25AA963D0005E717 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3111448C25AA963D0005E717 /* Persistence.swift */; };
 		3111449025AA963D0005E717 /* Album_Covers.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3111448E25AA963D0005E717 /* Album_Covers.xcdatamodeld */; };
+		3111449A25AA9C730005E717 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3111449925AA9C730005E717 /* LibraryView.swift */; };
+		318AD57E25AC187000FEBD12 /* PresetCollectionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD57D25AC186F00FEBD12 /* PresetCollectionsInfo.swift */; };
+		318AD58425AC3D4200FEBD12 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 318AD58325AC3D4200FEBD12 /* CloudKit.framework */; };
+		318AD58A25ACEDEB00FEBD12 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD58925ACEDEA00FEBD12 /* Extensions.swift */; };
+		318AD58D25AD0F7200FEBD12 /* CoverPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD58C25AD0F7200FEBD12 /* CoverPreview.swift */; };
+		318AD59025AD122300FEBD12 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD58F25AD122300FEBD12 /* ImageSaver.swift */; };
+		318AD59325AD125900FEBD12 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59225AD125900FEBD12 /* Collection.swift */; };
+		318AD59625AD12C200FEBD12 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59525AD12C200FEBD12 /* PillButton.swift */; };
+		318AD59925AD2FDC00FEBD12 /* LoadedImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59825AD2FDC00FEBD12 /* LoadedImageHandler.swift */; };
+		318AD59C25AD789E00FEBD12 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59B25AD789D00FEBD12 /* FontPicker.swift */; };
+		318AD59F25AE397800FEBD12 /* TextToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59E25AE397600FEBD12 /* TextToolsView.swift */; };
+		318AD5A225AE3C7100FEBD12 /* UIImageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD5A125AE3C7100FEBD12 /* UIImageColors.swift */; };
+		318AD5A525AE87CF00FEBD12 /* LibraryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD5A425AE87CE00FEBD12 /* LibraryStorage.swift */; };
+		31EAA17625AACB90009D2511 /* Backgrounds in Resources */ = {isa = PBXBuildFile; fileRef = 31EAA17525AACB8F009D2511 /* Backgrounds */; };
+		31EAA17925AADD3C009D2511 /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EAA17825AADD3B009D2511 /* CollectionsView.swift */; };
+		31EAA17C25AAE6CE009D2511 /* CoverEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EAA17B25AAE6CE009D2511 /* CoverEditView.swift */; };
+		31EAA17F25AAFE69009D2511 /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EAA17E25AAFE69009D2511 /* Cover.swift */; };
+		31EAA18225AB4E6B009D2511 /* PresetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EAA18125AB4E6B009D2511 /* PresetSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +42,25 @@
 		3111448C25AA963D0005E717 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		3111448F25AA963D0005E717 /* Album_Covers.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Album_Covers.xcdatamodel; sourceTree = "<group>"; };
 		3111449125AA963D0005E717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3111449925AA9C730005E717 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		318AD57D25AC186F00FEBD12 /* PresetCollectionsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetCollectionsInfo.swift; sourceTree = "<group>"; };
+		318AD58025AC3D3300FEBD12 /* Album Covers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Album Covers.entitlements"; sourceTree = "<group>"; };
+		318AD58325AC3D4200FEBD12 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		318AD58925ACEDEA00FEBD12 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		318AD58C25AD0F7200FEBD12 /* CoverPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPreview.swift; sourceTree = "<group>"; };
+		318AD58F25AD122300FEBD12 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
+		318AD59225AD125900FEBD12 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		318AD59525AD12C200FEBD12 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
+		318AD59825AD2FDC00FEBD12 /* LoadedImageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedImageHandler.swift; sourceTree = "<group>"; };
+		318AD59B25AD789D00FEBD12 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
+		318AD59E25AE397600FEBD12 /* TextToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToolsView.swift; sourceTree = "<group>"; };
+		318AD5A125AE3C7100FEBD12 /* UIImageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageColors.swift; sourceTree = "<group>"; };
+		318AD5A425AE87CE00FEBD12 /* LibraryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStorage.swift; sourceTree = "<group>"; };
+		31EAA17525AACB8F009D2511 /* Backgrounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Backgrounds; sourceTree = "<group>"; };
+		31EAA17825AADD3B009D2511 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
+		31EAA17B25AAE6CE009D2511 /* CoverEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverEditView.swift; sourceTree = "<group>"; };
+		31EAA17E25AAFE69009D2511 /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
+		31EAA18125AB4E6B009D2511 /* PresetSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				318AD58425AC3D4200FEBD12 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +80,7 @@
 			children = (
 				3111448225AA96310005E717 /* Album Covers */,
 				3111448125AA96310005E717 /* Products */,
+				318AD58225AC3D4200FEBD12 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,8 +95,26 @@
 		3111448225AA96310005E717 /* Album Covers */ = {
 			isa = PBXGroup;
 			children = (
+				318AD58025AC3D3300FEBD12 /* Album Covers.entitlements */,
+				31EAA17525AACB8F009D2511 /* Backgrounds */,
 				3111448325AA96310005E717 /* Album_CoversApp.swift */,
 				3111448525AA96310005E717 /* ContentView.swift */,
+				318AD58925ACEDEA00FEBD12 /* Extensions.swift */,
+				3111449925AA9C730005E717 /* LibraryView.swift */,
+				318AD5A425AE87CE00FEBD12 /* LibraryStorage.swift */,
+				318AD58C25AD0F7200FEBD12 /* CoverPreview.swift */,
+				31EAA17E25AAFE69009D2511 /* Cover.swift */,
+				318AD59825AD2FDC00FEBD12 /* LoadedImageHandler.swift */,
+				318AD59225AD125900FEBD12 /* Collection.swift */,
+				318AD58F25AD122300FEBD12 /* ImageSaver.swift */,
+				318AD57D25AC186F00FEBD12 /* PresetCollectionsInfo.swift */,
+				31EAA17825AADD3B009D2511 /* CollectionsView.swift */,
+				31EAA18125AB4E6B009D2511 /* PresetSelectionView.swift */,
+				31EAA17B25AAE6CE009D2511 /* CoverEditView.swift */,
+				318AD5A125AE3C7100FEBD12 /* UIImageColors.swift */,
+				318AD59E25AE397600FEBD12 /* TextToolsView.swift */,
+				318AD59B25AD789D00FEBD12 /* FontPicker.swift */,
+				318AD59525AD12C200FEBD12 /* PillButton.swift */,
 				3111448725AA963C0005E717 /* Assets.xcassets */,
 				3111448C25AA963D0005E717 /* Persistence.swift */,
 				3111449125AA963D0005E717 /* Info.plist */,
@@ -73,6 +130,14 @@
 				3111448A25AA963D0005E717 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		318AD58225AC3D4200FEBD12 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				318AD58325AC3D4200FEBD12 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31EAA17625AACB90009D2511 /* Backgrounds in Resources */,
 				3111448B25AA963D0005E717 /* Preview Assets.xcassets in Resources */,
 				3111448825AA963C0005E717 /* Assets.xcassets in Resources */,
 			);
@@ -144,9 +210,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				318AD59625AD12C200FEBD12 /* PillButton.swift in Sources */,
+				318AD57E25AC187000FEBD12 /* PresetCollectionsInfo.swift in Sources */,
 				3111448D25AA963D0005E717 /* Persistence.swift in Sources */,
+				318AD58D25AD0F7200FEBD12 /* CoverPreview.swift in Sources */,
+				318AD59C25AD789E00FEBD12 /* FontPicker.swift in Sources */,
 				3111448625AA96310005E717 /* ContentView.swift in Sources */,
+				318AD5A225AE3C7100FEBD12 /* UIImageColors.swift in Sources */,
+				31EAA17925AADD3C009D2511 /* CollectionsView.swift in Sources */,
+				318AD59325AD125900FEBD12 /* Collection.swift in Sources */,
+				318AD5A525AE87CF00FEBD12 /* LibraryStorage.swift in Sources */,
+				31EAA18225AB4E6B009D2511 /* PresetSelectionView.swift in Sources */,
+				31EAA17C25AAE6CE009D2511 /* CoverEditView.swift in Sources */,
 				3111448425AA96310005E717 /* Album_CoversApp.swift in Sources */,
+				318AD59F25AE397800FEBD12 /* TextToolsView.swift in Sources */,
+				31EAA17F25AAFE69009D2511 /* Cover.swift in Sources */,
+				3111449A25AA9C730005E717 /* LibraryView.swift in Sources */,
+				318AD59025AD122300FEBD12 /* ImageSaver.swift in Sources */,
+				318AD59925AD2FDC00FEBD12 /* LoadedImageHandler.swift in Sources */,
+				318AD58A25ACEDEB00FEBD12 /* Extensions.swift in Sources */,
 				3111449025AA963D0005E717 /* Album_Covers.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,9 +357,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Album Covers/Album Covers.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Album Covers/Preview Content\"";
-				DEVELOPMENT_TEAM = 55DA893284;
+				DEVELOPMENT_TEAM = 689VW8C66T;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Album Covers/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -285,7 +368,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.tarrouye.Album-Covers";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.tarrouye.Playlist-Covers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -297,9 +380,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Album Covers/Album Covers.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Album Covers/Preview Content\"";
-				DEVELOPMENT_TEAM = 55DA893284;
+				DEVELOPMENT_TEAM = 689VW8C66T;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Album Covers/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -307,7 +391,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.tarrouye.Album-Covers";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.tarrouye.Playlist-Covers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
