@@ -48,84 +48,103 @@ struct CoverPreview: View {
         if (cover != nil && !cover!.wrappedValue.isFault) {
             withProperties = PropertiesFromCover(cover!.wrappedValue)
         }
+        
+        // start loading image colors if not already when preview is displayed so that they are ready
+        // for edit view
+        loadImageColors()
+    }
+    
+    func loadImageColors() {
+        // check cache first
+        if ImageColorCache.shared.get(forKey: withProperties!.backgroundImgURL) == nil {
+            UIImage(named: withProperties!.backgroundImgURL)?.getColors { wrapped in
+                if let colors = wrapped {
+                    ImageColorCache.shared.set(colors, forKey: withProperties!.backgroundImgURL)
+                }
+            }
+        }
     }
     
     var body: some View {
-        if (withProperties != nil) {
-            GeometryReader { geometry in
-                ZStack {
-                    // background image
-                    Image(withProperties!.backgroundImgURL)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: coverSize(geometry), height: coverSize(geometry), alignment: .center)
-                        
-                    
-                    // text boxes
-                    ZStack {
-                        
-                        HStack {
-                            // Simulate sidePadding
-                            Spacer()
-                                .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
-                            
-                            VStack {
-                                // Use spacers to position text as it would be from parameters
-                                Spacer()
-                                    .frame(height: scaleAgainstWidth(withProperties!.topPos, geometry))
-                                
-                                Text(withProperties!.topText)
-                                    .font(Font(UIFont(name: withProperties!.topFontName, size: scaleAgainstWidth(withProperties!.topFontSize, geometry))!))
-                                    .foregroundColor(Color(withProperties!.topFontColor))
-                                    .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.textSidePadding, geometry) * 2, height: topFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.topTextAlignment))
-                                
-                                Spacer()
-                                    .frame(height: scaleAgainstWidth(1500 - withProperties!.topPos, geometry))
-                            }
-                            
-                            // Simulate sidePadding
-                            Spacer()
-                                .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
-                        }
-                    
-                    
-                    
-                        HStack {
-                            // Simulate sidePadding
-                            Spacer()
-                                .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
-                            
-                            VStack {
-                                // Use spacers to position text as it would be from parameters
-                                Spacer()
-                                    .frame(height: scaleAgainstWidth(withProperties!.botPos, geometry))
-                                
-                                Text(withProperties!.botText)
-                                    .multilineTextAlignment((withProperties!.botTextAlignment == .left) ? .leading : ((withProperties!.botTextAlignment == .right) ? .trailing : .center))
-                                    .fixedSize()
-                                    .font(Font(UIFont(name: withProperties!.botFontName, size: scaleAgainstWidth(withProperties!.botFontSize, geometry))!))
-                                    .foregroundColor(Color(withProperties!.botFontColor))
-                                    .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.textSidePadding, geometry) * 2, height: botFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.botTextAlignment))
-                                
-                                Spacer()
-                                    .frame(height: scaleAgainstWidth(1500 - withProperties!.botPos, geometry))
-                                    
-                            }
-                            
-                            // Simulate sidePadding
-                            Spacer()
-                                .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
-                        }
-                        
-                    }
-                    .frame(width: coverSize(geometry), height: coverSize(geometry), alignment: .center)
-                }
-            }
-        } else {
+        ZStack {
             Color(UIColor.systemBackground)
                 .onAppear() {
                     initialSetup()
                 }
+            
+            
+        
+            if (withProperties != nil) {
+                GeometryReader { geometry in
+                    ZStack {
+                        // background image
+                        Image(withProperties!.backgroundImgURL)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: coverSize(geometry), height: coverSize(geometry), alignment: .center)
+                            
+                        
+                        // text boxes
+                        ZStack {
+                            
+                            HStack {
+                                // Simulate sidePadding
+                                Spacer()
+                                    .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
+                                
+                                VStack {
+                                    // Use spacers to position text as it would be from parameters
+                                    Spacer()
+                                        .frame(height: scaleAgainstWidth(withProperties!.topPos, geometry))
+                                    
+                                    Text(withProperties!.topText)
+                                        .font(Font(UIFont(name: withProperties!.topFontName, size: scaleAgainstWidth(withProperties!.topFontSize, geometry))!))
+                                        .foregroundColor(Color(withProperties!.topFontColor))
+                                        .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.textSidePadding, geometry) * 2, height: topFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.topTextAlignment))
+                                    
+                                    Spacer()
+                                        .frame(height: scaleAgainstWidth(1500 - withProperties!.topPos, geometry))
+                                }
+                                
+                                // Simulate sidePadding
+                                Spacer()
+                                    .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
+                            }
+                        
+                        
+                        
+                            HStack {
+                                // Simulate sidePadding
+                                Spacer()
+                                    .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
+                                
+                                VStack {
+                                    // Use spacers to position text as it would be from parameters
+                                    Spacer()
+                                        .frame(height: scaleAgainstWidth(withProperties!.botPos, geometry))
+                                    
+                                    Text(withProperties!.botText)
+                                        .multilineTextAlignment((withProperties!.botTextAlignment == .left) ? .leading : ((withProperties!.botTextAlignment == .right) ? .trailing : .center))
+                                        .fixedSize()
+                                        .font(Font(UIFont(name: withProperties!.botFontName, size: scaleAgainstWidth(withProperties!.botFontSize, geometry))!))
+                                        .foregroundColor(Color(withProperties!.botFontColor))
+                                        .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.textSidePadding, geometry) * 2, height: botFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.botTextAlignment))
+                                    
+                                    Spacer()
+                                        .frame(height: scaleAgainstWidth(1500 - withProperties!.botPos, geometry))
+                                        
+                                }
+                                
+                                // Simulate sidePadding
+                                Spacer()
+                                    .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
+                            }
+                            
+                        }
+                        .frame(width: coverSize(geometry), height: coverSize(geometry), alignment: .center)
+                    }
+                }
+            }
         }
     }
     

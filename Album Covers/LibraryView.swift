@@ -162,7 +162,7 @@ struct LibraryView: View {
                             ZStack {
                                 // Empty Navlink to trigger programatically
                                 NavigationLink(
-                                    destination: CoverEditView(existingManagedObject: cover, rootIsActive:
+                                    destination: CoverEditView(existingManagedObject: ObservedObject<Cover>(wrappedValue: cover), rootIsActive:
                                                 Binding(get: {
                                                     return (selectedNavigationItem == cover.id)
                                                 }, set: {

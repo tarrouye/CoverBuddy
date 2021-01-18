@@ -40,7 +40,7 @@
     import UIKit
 #endif
 
-public struct UIImageColors {
+public class UIImageColors {
     public var background: UIColor!
     public var primary: UIColor!
     public var secondary: UIColor!
