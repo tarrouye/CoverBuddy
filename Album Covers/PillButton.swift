@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Simple Pill shaped button
 struct PillButton : View {
     var label : String?
     var systemImage : String?
@@ -15,21 +16,21 @@ struct PillButton : View {
     var action : (() -> Void)?
     
     var body: some View {
-        Group {
+        HStack {
+            if (self.systemImage != nil) {
+                Image(systemName: self.systemImage!)
+                    .padding(self.label != nil ? .leading : .horizontal, 8)
+                    
+            }
+            
             if (self.label != nil) {
                 Text(self.label!)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .background(self.bgCol)
-                    .cornerRadius(15)
-            } else if (self.systemImage != nil) {
-                Image(systemName: self.systemImage!)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(self.bgCol)
-                    .cornerRadius(15)
+                    .padding(self.systemImage != nil ? .trailing : .horizontal, 10)
             }
         }
+        .padding(.vertical, 5)
+        .background(self.bgCol)
+        .cornerRadius(15)
         .onTapGesture {
             if (self.action != nil) {
                 self.action!()

@@ -105,13 +105,13 @@ class CoverEditViewModel : ObservableObject {
     }
     
     func loadImageColors() {
-        // get image colors
         // check cache first
         if let cacheColors = ImageColorCache.shared.get(forKey: self.backgroundImage!) {
             self.dominantImageColor = Color(cacheColors.background)
             self.buttonLabelColor = Color(cacheColors.primary)
         } else {
-            UIImage(named: withProperties!.backgroundImgURL)?.getColors { wrapped in
+            // get image colors
+            UIImage(named: self.backgroundImage!)?.getColors { wrapped in
                 if let colors = wrapped {
                     self.dominantImageColor = Color(colors.background)
                     self.buttonLabelColor = Color(colors.primary)
@@ -120,8 +120,6 @@ class CoverEditViewModel : ObservableObject {
                 }
             }
         }
-        
-        
     }
     
     
@@ -283,7 +281,9 @@ class CoverEditViewModel : ObservableObject {
                 }
 
                 // Save changes to persistent container
-                PersistenceController.shared.saveContainer()
+                withAnimation {
+                    PersistenceController.shared.saveContainer()
+                }
             }
         }
     }

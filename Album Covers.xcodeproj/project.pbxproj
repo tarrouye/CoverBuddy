@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		3111448425AA96310005E717 /* Album_CoversApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3111448325AA96310005E717 /* Album_CoversApp.swift */; };
-		3111448625AA96310005E717 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3111448525AA96310005E717 /* ContentView.swift */; };
 		3111448825AA963C0005E717 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3111448725AA963C0005E717 /* Assets.xcassets */; };
 		3111448B25AA963D0005E717 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3111448A25AA963D0005E717 /* Preview Assets.xcassets */; };
 		3111448D25AA963D0005E717 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3111448C25AA963D0005E717 /* Persistence.swift */; };
 		3111449025AA963D0005E717 /* Album_Covers.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3111448E25AA963D0005E717 /* Album_Covers.xcdatamodeld */; };
 		3111449A25AA9C730005E717 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3111449925AA9C730005E717 /* LibraryView.swift */; };
 		3173644925B52D2800C71665 /* CoverEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3173644825B52D2800C71665 /* CoverEditViewModel.swift */; };
+		31876D4125B5788600118A62 /* BackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31876D4025B5788600118A62 /* BackgroundBlurView.swift */; };
+		31876D4525B57E6C00118A62 /* CoverThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31876D4425B57E6C00118A62 /* CoverThumbnail.swift */; };
+		31876D4925B58A9200118A62 /* CollectionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31876D4825B58A9200118A62 /* CollectionCard.swift */; };
+		31876D4C25B58B0800118A62 /* FFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31876D4B25B58B0800118A62 /* FFButton.swift */; };
 		318AD57E25AC187000FEBD12 /* PresetCollectionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD57D25AC186F00FEBD12 /* PresetCollectionsInfo.swift */; };
 		318AD58425AC3D4200FEBD12 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 318AD58325AC3D4200FEBD12 /* CloudKit.framework */; };
 		318AD58A25ACEDEB00FEBD12 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD58925ACEDEA00FEBD12 /* Extensions.swift */; };
@@ -22,22 +25,19 @@
 		318AD59025AD122300FEBD12 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD58F25AD122300FEBD12 /* ImageSaver.swift */; };
 		318AD59325AD125900FEBD12 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59225AD125900FEBD12 /* Collection.swift */; };
 		318AD59625AD12C200FEBD12 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59525AD12C200FEBD12 /* PillButton.swift */; };
-		318AD59925AD2FDC00FEBD12 /* LoadedImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59825AD2FDC00FEBD12 /* LoadedImageHandler.swift */; };
 		318AD59C25AD789E00FEBD12 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59B25AD789D00FEBD12 /* FontPicker.swift */; };
 		318AD59F25AE397800FEBD12 /* TextToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD59E25AE397600FEBD12 /* TextToolsView.swift */; };
 		318AD5A225AE3C7100FEBD12 /* UIImageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD5A125AE3C7100FEBD12 /* UIImageColors.swift */; };
 		318AD5A525AE87CF00FEBD12 /* LibraryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD5A425AE87CE00FEBD12 /* LibraryStorage.swift */; };
-		31EAA17625AACB90009D2511 /* Backgrounds in Resources */ = {isa = PBXBuildFile; fileRef = 31EAA17525AACB8F009D2511 /* Backgrounds */; };
 		31EAA17925AADD3C009D2511 /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EAA17825AADD3B009D2511 /* CollectionsView.swift */; };
 		31EAA17C25AAE6CE009D2511 /* CoverEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EAA17B25AAE6CE009D2511 /* CoverEditView.swift */; };
-		31EAA17F25AAFE69009D2511 /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EAA17E25AAFE69009D2511 /* Cover.swift */; };
+		31EAA17F25AAFE69009D2511 /* CoverUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EAA17E25AAFE69009D2511 /* CoverUtilities.swift */; };
 		31EAA18225AB4E6B009D2511 /* PresetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EAA18125AB4E6B009D2511 /* PresetSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3111448025AA96310005E717 /* Album Covers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Album Covers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3111448325AA96310005E717 /* Album_CoversApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album_CoversApp.swift; sourceTree = "<group>"; };
-		3111448525AA96310005E717 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3111448725AA963C0005E717 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3111448A25AA963D0005E717 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3111448C25AA963D0005E717 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -45,6 +45,10 @@
 		3111449125AA963D0005E717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3111449925AA9C730005E717 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		3173644825B52D2800C71665 /* CoverEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverEditViewModel.swift; sourceTree = "<group>"; };
+		31876D4025B5788600118A62 /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
+		31876D4425B57E6C00118A62 /* CoverThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverThumbnail.swift; sourceTree = "<group>"; };
+		31876D4825B58A9200118A62 /* CollectionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCard.swift; sourceTree = "<group>"; };
+		31876D4B25B58B0800118A62 /* FFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFButton.swift; sourceTree = "<group>"; };
 		318AD57D25AC186F00FEBD12 /* PresetCollectionsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetCollectionsInfo.swift; sourceTree = "<group>"; };
 		318AD58025AC3D3300FEBD12 /* Album Covers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Album Covers.entitlements"; sourceTree = "<group>"; };
 		318AD58325AC3D4200FEBD12 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -53,15 +57,13 @@
 		318AD58F25AD122300FEBD12 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		318AD59225AD125900FEBD12 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		318AD59525AD12C200FEBD12 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
-		318AD59825AD2FDC00FEBD12 /* LoadedImageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedImageHandler.swift; sourceTree = "<group>"; };
 		318AD59B25AD789D00FEBD12 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
 		318AD59E25AE397600FEBD12 /* TextToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToolsView.swift; sourceTree = "<group>"; };
 		318AD5A125AE3C7100FEBD12 /* UIImageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageColors.swift; sourceTree = "<group>"; };
 		318AD5A425AE87CE00FEBD12 /* LibraryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStorage.swift; sourceTree = "<group>"; };
-		31EAA17525AACB8F009D2511 /* Backgrounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Backgrounds; sourceTree = "<group>"; };
 		31EAA17825AADD3B009D2511 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
 		31EAA17B25AAE6CE009D2511 /* CoverEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverEditView.swift; sourceTree = "<group>"; };
-		31EAA17E25AAFE69009D2511 /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
+		31EAA17E25AAFE69009D2511 /* CoverUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverUtilities.swift; sourceTree = "<group>"; };
 		31EAA18125AB4E6B009D2511 /* PresetSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,24 +100,25 @@
 			isa = PBXGroup;
 			children = (
 				318AD58025AC3D3300FEBD12 /* Album Covers.entitlements */,
-				31EAA17525AACB8F009D2511 /* Backgrounds */,
 				3111448325AA96310005E717 /* Album_CoversApp.swift */,
-				3111448525AA96310005E717 /* ContentView.swift */,
 				318AD58925ACEDEA00FEBD12 /* Extensions.swift */,
 				3111449925AA9C730005E717 /* LibraryView.swift */,
+				31876D4425B57E6C00118A62 /* CoverThumbnail.swift */,
 				318AD5A425AE87CE00FEBD12 /* LibraryStorage.swift */,
 				318AD58C25AD0F7200FEBD12 /* CoverPreview.swift */,
-				31EAA17E25AAFE69009D2511 /* Cover.swift */,
-				318AD59825AD2FDC00FEBD12 /* LoadedImageHandler.swift */,
+				31EAA17E25AAFE69009D2511 /* CoverUtilities.swift */,
 				318AD59225AD125900FEBD12 /* Collection.swift */,
 				318AD58F25AD122300FEBD12 /* ImageSaver.swift */,
 				318AD57D25AC186F00FEBD12 /* PresetCollectionsInfo.swift */,
 				31EAA17825AADD3B009D2511 /* CollectionsView.swift */,
+				31876D4825B58A9200118A62 /* CollectionCard.swift */,
+				31876D4025B5788600118A62 /* BackgroundBlurView.swift */,
 				31EAA18125AB4E6B009D2511 /* PresetSelectionView.swift */,
 				31EAA17B25AAE6CE009D2511 /* CoverEditView.swift */,
 				3173644825B52D2800C71665 /* CoverEditViewModel.swift */,
 				318AD5A125AE3C7100FEBD12 /* UIImageColors.swift */,
 				318AD59E25AE397600FEBD12 /* TextToolsView.swift */,
+				31876D4B25B58B0800118A62 /* FFButton.swift */,
 				318AD59B25AD789D00FEBD12 /* FontPicker.swift */,
 				318AD59525AD12C200FEBD12 /* PillButton.swift */,
 				3111448725AA963C0005E717 /* Assets.xcassets */,
@@ -200,7 +203,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31EAA17625AACB90009D2511 /* Backgrounds in Resources */,
 				3111448B25AA963D0005E717 /* Preview Assets.xcassets in Resources */,
 				3111448825AA963C0005E717 /* Assets.xcassets in Resources */,
 			);
@@ -219,7 +221,9 @@
 				3111448D25AA963D0005E717 /* Persistence.swift in Sources */,
 				318AD58D25AD0F7200FEBD12 /* CoverPreview.swift in Sources */,
 				318AD59C25AD789E00FEBD12 /* FontPicker.swift in Sources */,
-				3111448625AA96310005E717 /* ContentView.swift in Sources */,
+				31876D4525B57E6C00118A62 /* CoverThumbnail.swift in Sources */,
+				31876D4925B58A9200118A62 /* CollectionCard.swift in Sources */,
+				31876D4125B5788600118A62 /* BackgroundBlurView.swift in Sources */,
 				318AD5A225AE3C7100FEBD12 /* UIImageColors.swift in Sources */,
 				31EAA17925AADD3C009D2511 /* CollectionsView.swift in Sources */,
 				318AD59325AD125900FEBD12 /* Collection.swift in Sources */,
@@ -228,10 +232,10 @@
 				31EAA17C25AAE6CE009D2511 /* CoverEditView.swift in Sources */,
 				3111448425AA96310005E717 /* Album_CoversApp.swift in Sources */,
 				318AD59F25AE397800FEBD12 /* TextToolsView.swift in Sources */,
-				31EAA17F25AAFE69009D2511 /* Cover.swift in Sources */,
+				31EAA17F25AAFE69009D2511 /* CoverUtilities.swift in Sources */,
 				3111449A25AA9C730005E717 /* LibraryView.swift in Sources */,
 				318AD59025AD122300FEBD12 /* ImageSaver.swift in Sources */,
-				318AD59925AD2FDC00FEBD12 /* LoadedImageHandler.swift in Sources */,
+				31876D4C25B58B0800118A62 /* FFButton.swift in Sources */,
 				318AD58A25ACEDEB00FEBD12 /* Extensions.swift in Sources */,
 				3111449025AA963D0005E717 /* Album_Covers.xcdatamodeld in Sources */,
 			);

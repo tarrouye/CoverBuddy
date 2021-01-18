@@ -19,8 +19,6 @@ struct Collection : Hashable {
         self.tagline = tag
         self.templates = presets
     }
-    
-    var allImg : UIImage?
 }
 
 

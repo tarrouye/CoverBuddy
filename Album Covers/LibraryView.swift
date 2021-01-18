@@ -7,85 +7,6 @@
 
 import SwiftUI
 
-struct CoverThumbnail : View {
-    var cover : ObservedObject<Cover>
-    
-    var rounding: CGFloat
-    
-    @Binding var isSelecting : Bool
-    @Binding var isSelected : Bool
-    @Binding var navigationItem : UUID?
-    
-    @Namespace private var namespace
-    
-    var body : some View {
-        Button(action: {
-            if (isSelecting) {
-                withAnimation {
-                    isSelected.toggle()
-                }
-            } else {
-                navigationItem = cover.wrappedValue.id
-            }
-        }) {
-            CoverPreview(cover: cover)
-                .overlay(
-                    HStack {
-                        if (!isSelected) {
-                            Spacer()
-                        }
-                        
-                        VStack {
-                            if (!isSelected) {
-                                Spacer()
-                            }
-                            
-                            ZStack {
-                                if (isSelecting) {
-                                    
-                                    Color(UIColor.secondaryLabel).opacity(isSelected ? 0.7 : 0.0)
-                                        .clipShape(RoundedRectangle(cornerRadius: isSelected ? rounding: 100, style: .continuous))
-                                        .overlay(
-                                            
-                                                RoundedRectangle(cornerRadius: isSelected ? rounding: 100, style: .continuous)
-                                                    .stroke(Color.blue, lineWidth: isSelected ? 6 : 0)
-                                                    //.matchedGeometryEffect(id: "outline", in: namespace)
-                                                
-                                            
-                                        )
-                                        .frame(width: isSelected ? .infinity : 30, height: isSelected ? .infinity : 30)
-                                        .padding(1)
-                                        .zIndex(-1)
-                                    
-                                    Circle()
-                                        .foregroundColor(Color(UIColor.systemGray2).opacity(isSelected ? 0.7 : 0.5))
-                                        .overlay(
-                                            Circle()
-                                                .stroke(isSelected ? Color.clear : Color.red, lineWidth: isSelected ? 0 : 4)
-                                                //.matchedGeometryEffect(id: "outline", in: namespace)
-                                                .overlay(
-                                                    Image(systemName: "checkmark")
-                                                        .foregroundColor(Color.green)
-                                                        .font(.system(size: 30, weight: .semibold))
-                                                        .opacity(isSelected ? 1 : 0)
-                                                )
-                                                
-                                        )
-                                    .frame(width: isSelected ? 60: 30, height: isSelected ? 60 : 30)
-                                    .shadow(color: Color(UIColor.systemGray2), radius: 7)
-                                    .padding()
-                                    .zIndex(0)
-                                }
-                            }
-                        }
-                    }
-                    
-                )
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
-
 struct LibraryView: View {
     // Get CoreData managedObjectContext
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -151,6 +72,7 @@ struct LibraryView: View {
                     }
                     .isDetailLink(false)
                     .buttonStyle(PlainButtonStyle())
+                    .disabled(self.isSelecting)
                     
                     
                     // Loop through library and display thumbnails
@@ -206,11 +128,11 @@ struct LibraryView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         if (self.isSelecting) {
                             HStack {
-                                PillButton(systemImage: "trash.fill") {
+                                PillButton(/*label: "Delete", */systemImage: "trash.fill") { //, bgCol: (self.selections.count > 0) ? Color.red : Color(UIColor.tertiarySystemGroupedBackground)) {
                                     self.deleteSelections()
                                 }
                                 
-                                PillButton(systemImage: "square.and.arrow.up.fill") {
+                                PillButton(/*label: "Export", */systemImage: "square.and.arrow.up.fill") { //, bgCol: (self.selections.count > 0) ? Color.blue : Color(UIColor.tertiarySystemGroupedBackground)) {
                                     self.exportSelections()
                                 }
                             }
@@ -219,7 +141,7 @@ struct LibraryView: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         // Edit button
-                        PillButton(label: self.isSelecting ? "Done" : "Edit", bgCol: self.isSelecting ? Color.blue : Color(UIColor.tertiarySystemGroupedBackground)) {
+                        PillButton(label: self.isSelecting ? "Done" : "Select", bgCol: self.isSelecting ? Color.blue : Color(UIColor.tertiarySystemGroupedBackground)) {
                             self.toggleEditMode()
                         }
                     }

@@ -34,23 +34,6 @@ struct PresetSelectionView: View {
     
     var rounding: CGFloat = 20
     
-    //@State private var presetImages : [UIImage?] = []
-    
-    func initialSetup() {
-        
-        /*if (presetImages.count < 1) {
-            // load all preset images
-            for i in collection.templates.indices {
-                LoadedImageHandler.shared.loadImage(forKey: "collection-\(collection.title)-preset-thumbnail-\(collection.templates[i].backgroundImgURL).\(collection.templates[i].backgroundImgType)", fallback: { convertToThumbnail(makeCoverImage(collection.templates[i])) }, fromDisk: true) { img in
-                    if (img != nil) {
-                        presetImages.append(img)
-                    }
-                }
-               
-            }
-        }*/
-    }
-    
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center) {
@@ -111,11 +94,7 @@ struct PresetSelectionView: View {
                 
             }
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-            //.frame(width: .infinity, height: .infinity)
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                initialSetup()
-            }
         }
     }
 }
