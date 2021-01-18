@@ -25,7 +25,7 @@ struct MyTextField : View {
             TextField(placeholder, text: $text)
                 .multilineTextAlignment((alignment == .left) ? .leading : ((alignment == .right) ? .trailing : .center))
                 .background(text.isEmpty ? Color.white.opacity(0.5) : Color.clear)
-                //.fixedSize()
+                .fixedSize()
             
             if (alignment == .left || alignment == .center) {
                 Spacer()
@@ -148,17 +148,13 @@ struct CoverEditView: View {
         resetTextToInitialCoverValues()
         
         
-        loadCoverBackgroundImage(withProperties!, colorCompletion: { wrapped in
-                if let colors = wrapped {
-                    dominantImageColor = Color(colors.background)
-                    buttonLabelColor = Color(colors.primary)
-                }
-            }) { img in
-        
-                if (img != nil) {
-                    backgroundImg = img
-                }
+        UIImage(named: withProperties!.backgroundImgURL)?.getColors { wrapped in
+            if let colors = wrapped {
+                dominantImageColor = Color(colors.background)
+                buttonLabelColor = Color(colors.primary)
+            }
         }
+        
         
         
         isExporting = false
@@ -240,12 +236,12 @@ struct CoverEditView: View {
                         UIApplication.shared.endEditing()
                     }
                 
-                if (backgroundImg != nil && withProperties != nil) {
+                if (withProperties != nil) {
                     VStack(alignment: .center) {
                         // Preview
                         ZStack {
                             // background image
-                            Image(uiImage: backgroundImg!)
+                            Image(withProperties!.backgroundImgURL)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: coverSize(geometry), height: coverSize(geometry), alignment: .center)

@@ -69,6 +69,7 @@ struct PresetSelectionView: View {
                     .padding(.bottom)
                 
                 
+                Spacer()
                 
                 // Previews
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -78,9 +79,6 @@ struct PresetSelectionView: View {
                                 NavigationLink(destination: CoverEditView(withProperties: collection.templates[i], rootIsActive: $rootIsActive)) {
                                     VStack {
                                         // Thumbnail
-                                        /*Image(uiImage: presetImages[i]!)
-                                            .resizable()
-                                            .scaledToFit()*/
                                         CoverPreview(withProperties: collection.templates[i])
                                             .frame(width: min(geometry.size.width, geometry.size.height) * 0.8, height: min(geometry.size.width, geometry.size.height) * 0.8)
                                             .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
@@ -105,7 +103,6 @@ struct PresetSelectionView: View {
                                 .buttonStyle(PlainButtonStyle())
                             //}
                         }
-                        .id(UUID())
                     }
                 }
                 .background(EmptyView())
@@ -114,7 +111,7 @@ struct PresetSelectionView: View {
                 
             }
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-            .frame(width: .infinity, height: .infinity)
+            //.frame(width: .infinity, height: .infinity)
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 initialSetup()

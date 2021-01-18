@@ -12,7 +12,7 @@ import SwiftUI
 
 var allCollections : [Collection] = [
     // Scenes collection
-    Collection("Moods", "Feeling some kinda way?",
+    Collection("Moods", "Feelin' some kinda way?",
         [
             CoverProperties(topText: "Deep",
                   botText: "Space",
@@ -582,10 +582,11 @@ var allCollections : [Collection] = [
                   botTextAlignment: .left,
                   topFontName: "Helvetica Bold",
                   botFontName: "Helvetica",
-                  topFontSize: 216,
-                  botFontSize: 216,
+                  topFontSize: 180,
+                  botFontSize: 180,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  textSidePadding: 50,
                   backgroundImgDirectory: "Abstract",
                   backgroundImgURL: "rodion-kutsaev-2")
         ]

@@ -257,7 +257,7 @@ func cgDrawCoverImage(_ image : UIImage, _ cover : CoverProperties) -> UIImage? 
         ] as [NSAttributedString.Key : Any]
         
         // Draw bottom text
-        let botTextRect = CGRect(x: cover.textSidePadding, y: cover.botPos - botFont.lineHeight / 2, width: canvas.width - cover.textSidePadding, height: botFont.lineHeight)
+        let botTextRect = CGRect(x: cover.textSidePadding, y: cover.botPos - botFont.lineHeight / 2, width: canvas.width - cover.textSidePadding * 2, height: botFont.lineHeight)
         
         cover.botText.draw(in: botTextRect, withAttributes: botTextAttributes)
     }

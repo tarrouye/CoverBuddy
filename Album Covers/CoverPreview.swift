@@ -46,46 +46,16 @@ struct CoverPreview: View {
     
     func initialSetup() {
         if (cover != nil && !cover!.wrappedValue.isFault) {
-            //if (withProperties == nil) {
-                withProperties = PropertiesFromCover(cover!.wrappedValue)
-            //}
-            
-            // load images when first appear
-            
-            /*LoadedImageHandler.shared.loadImage(forKey: "cover-rendered-thumbnail-image-\(cover.id!.uuidString)", fallback: {
-                if (cover.renderedImageData != nil) {
-                    if let img = UIImage(data: cover.renderedImageData!) {
-                        return convertToThumbnail(img, scaleFactor: 0.5)
-                    }
-                }
-                
-                return nil
-            }) { img in
-                coverImage = img
-            }*/
-            
-            if (backgroundImage == nil) {
-                loadCoverBackgroundImage(cover!.wrappedValue, colorCompletion: { wrapped in }) { img in
-                    backgroundImage = img
-                }
-            }
-        } else {
-            if (withProperties != nil) {
-                if (backgroundImage == nil) {
-                    loadCoverBackgroundImage(withProperties!, colorCompletion: { wrapped in }) { img in
-                        backgroundImage = img
-                    }
-                }
-            }
+            withProperties = PropertiesFromCover(cover!.wrappedValue)
         }
     }
     
     var body: some View {
-        if (withProperties != nil && backgroundImage != nil) {
+        if (withProperties != nil) {
             GeometryReader { geometry in
                 ZStack {
                     // background image
-                    Image(uiImage: backgroundImage!)
+                    Image(withProperties!.backgroundImgURL)
                         .resizable()
                         .scaledToFit()
                         .frame(width: coverSize(geometry), height: coverSize(geometry), alignment: .center)
@@ -150,9 +120,6 @@ struct CoverPreview: View {
                     }
                     .frame(width: coverSize(geometry), height: coverSize(geometry), alignment: .center)
                 }
-            }
-            .onAppear() {
-                initialSetup()
             }
         } else {
             Color(UIColor.systemBackground)

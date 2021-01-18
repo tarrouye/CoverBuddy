@@ -90,12 +90,6 @@ struct LibraryView: View {
     // Get CoreData managedObjectContext
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    // Set up FetchRequest to get user library
-    /*@FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Cover.dateEdited, ascending: false)],
-        animation: .default)
-    private var library: FetchedResults<Cover>*/
-    
     @ObservedObject var libraryStore : LibraryStorage
     
     // Establish UI settings
@@ -122,7 +116,9 @@ struct LibraryView: View {
     }
     
     func deleteSelections() {
-        libraryStore.deleteItems(selections)
+        withAnimation {
+            libraryStore.deleteItems(selections)
+        }
         
         toggleEditMode()
     }
