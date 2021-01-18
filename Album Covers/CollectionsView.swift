@@ -48,7 +48,6 @@ struct CollectionsView: View {
             }
             .animation(nil)
         }
-        //.padding(.vertical, 1) // fix for scrollview glitchy when not filling whole screen
         .padding(.bottom) // since we will ignore bottom safe area
         .edgesIgnoringSafeArea(.bottom) // hide background on home indicator
     }

@@ -94,9 +94,7 @@ struct LibraryView: View {
                                                 })
                                     ),
                                     tag: cover.id!,
-                                    selection: $selectedNavigationItem) {
-                                }
-                                .isDetailLink(false)
+                                    selection: $selectedNavigationItem) {}.isDetailLink(false)
                                 
                             
                                 CoverThumbnail(cover: ObservedObject<Cover>(wrappedValue: cover), rounding: rounding, isSelecting: $isSelecting, isSelected: Binding(get: {
