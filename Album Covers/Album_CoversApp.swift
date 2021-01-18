@@ -10,12 +10,6 @@ import SwiftUI
 @main
 struct Album_CoversApp: App {
     let persistenceController = PersistenceController.shared
-    //@StateObject var libraryStorage : LibraryStorage
-    
-    //init() {
-        //let storage = LibraryStorage(managedObjectContext: persistenceController.container.viewContext)
-        //self._libraryStorage = StateObject(wrappedValue: storage)
-    //}
 
     var body: some Scene {
         WindowGroup {

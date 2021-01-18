@@ -11,7 +11,7 @@ struct LibraryView: View {
     // Get CoreData managedObjectContext
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @ObservedObject var libraryStore : LibraryStorage
+    @StateObject var libraryStore : LibraryStorage
     
     // Establish UI settings
     var columnGrid = [GridItem(.flexible()), GridItem(.flexible())]

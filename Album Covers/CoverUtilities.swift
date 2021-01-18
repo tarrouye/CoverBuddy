@@ -37,7 +37,6 @@ struct CoverProperties : Hashable {
     var textSidePadding : CGFloat = 100
     
     // background image for cover
-    var backgroundImgDirectory : String = "Love"
     var backgroundImgURL : String = "alexandru-acea"
     var backgroundImgType : String = "png"
     
@@ -116,7 +115,6 @@ func PropertiesFromCover(_ cover : Cover) -> CoverProperties {
     props.botXOffset = CGFloat(cover.botXOffset)
     props.backgroundImgURL = cover.backgroundImgURL ?? "adrien-converse"
     props.backgroundImgType = cover.backgroundImgType ?? "png"
-    props.backgroundImgDirectory = cover.backgroundImgDirectory ?? "Abstract"
     
     if (cover.renderedImageData != nil) {
         props.renderedImage = UIImage(data: cover.renderedImageData!)
@@ -145,7 +143,6 @@ func CoverFromProperties(_ props : CoverProperties) -> Cover {
     cover.botXOffset = Float(props.botXOffset)
     cover.backgroundImgURL = props.backgroundImgURL
     cover.backgroundImgType = props.backgroundImgType
-    cover.backgroundImgDirectory = props.backgroundImgDirectory
     
     if (props.renderedImage != nil) {
         cover.renderedImageData = props.renderedImage!.pngData()
