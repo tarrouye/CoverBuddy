@@ -230,10 +230,6 @@ struct LibraryView: View {
             .edgesIgnoringSafeArea(.bottom) // hide background on home indicator
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear {
-            // TO-DO: Make this Asynchronous + store results
-            makeAllCollectionCovers()
-        }
         
     }
 }

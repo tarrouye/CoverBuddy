@@ -23,6 +23,12 @@ struct Collection : Hashable {
     var allImg : UIImage?
 }
 
+
+/*
+ 
+This is used in dev environment to make the combined cover for a collection.
+It is not used in production.
+ 
 func makeCombinedCover(_ collect : Collection) -> UIImage? {
     // get all the cover thumbnails
     var coverImages : [UIImage] = []
@@ -79,15 +85,13 @@ func makeCombinedCover(_ collect : Collection) -> UIImage? {
     // return cover image!
     return result
 }
+ 
+
 
 func makeAllCollectionCovers() {
     for i in allCollections.indices {
-        LoadedImageHandler.shared.loadImage(forKey: "combined-album-cover-collection-\(allCollections[i].title.lowercased())", fallback: { makeCombinedCover(allCollections[i]) }, fromDisk: true) { img in
-            allCollections[i].allImg = img
-        }
-        
-        for c in allCollections[i].templates {
-            LoadedImageHandler.shared.loadImage(forKey: "cover-background-\(c.backgroundImgDirectory)-\(c.backgroundImgURL)-\(c.backgroundImgType)", colorCompletion: { wrapped in }) { _ in }
-        }
+        makeCombinedCover(allCollections[i])
     }
 }
+ 
+ */

@@ -41,9 +41,7 @@ struct CoverPreview: View {
         
         return .center
     }
-    
-    @State var topText = ""
-    
+
     func initialSetup() {
         if (cover != nil && !cover!.wrappedValue.isFault) {
             withProperties = PropertiesFromCover(cover!.wrappedValue)

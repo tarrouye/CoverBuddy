@@ -21,6 +21,25 @@ struct BackgroundBlurView: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
+struct CollectionImage : View {
+    @Binding var collection : Collection!
+    
+    var body : some View {
+        VStack {
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], alignment: .center) {
+            ForEach(collection.templates, id: \.backgroundImgURL) { props in
+                CoverPreview(withProperties: props)
+                    .frame(width: 80, height: 80)
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            }
+        }
+        
+        Spacer()
+        }
+    }
+    
+}
+
 struct CollectionCard : View {
     @State var collection : Collection!
     
@@ -30,14 +49,19 @@ struct CollectionCard : View {
             ZStack {
                 Color(UIColor.secondarySystemGroupedBackground)
                 
-                if (collection.allImg != nil) {
-                    Image(uiImage: collection.allImg!)
+                //if (collection.allImg != nil) {
+                    Image("combined-album-cover-collection-\(collection.title.lowercased())")
                         .resizable()
                         .scaledToFit()
                         .offset(x: 0, y: 25)
                         .rotationEffect(.degrees(rotationDegrees))
                         .scaleEffect(1.55)
-                }
+                //}
+                
+                /*CollectionImage(collection: $collection)
+                    .offset(x: 0, y: 25)
+                    .rotationEffect(.degrees(rotationDegrees))
+                    //.scaleEffect(1.55)*/
             }
             .frame(height: 250)
             .clipShape(RoundedRectangle(cornerRadius: 35, style: .continuous))
