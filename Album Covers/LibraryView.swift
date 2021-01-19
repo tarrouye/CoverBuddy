@@ -47,10 +47,11 @@ struct LibraryView: View {
     
     func exportSelections() {
         if (!showingExportInstructions && selections.count > 0) {
-            self.showingExportInstructions = libraryStore.exportItems(selections)
+            if !libraryStore.exportItems(selections) { ImageSaver.shared.latestSaveSuceeded = false }
+        
+            self.showingExportInstructions = true
+            
             toggleEditMode()
-        } else {
-            self.showingExportInstructions = false
         }
     }
     

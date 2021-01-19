@@ -266,13 +266,11 @@ func convertToThumbnail(_ imgMaybe : UIImage?, scaleFactor : CGFloat = 0.8) -> U
 }
 
 func saveCoverImage(_ cover: Cover) -> Bool {
-    let imageSaver = ImageSaver()
-    
     // try getting it from already made first
     if let imgData = cover.renderedImageData {
         if let coverImg = UIImage(data: imgData) {
             // try to write to photo album
-            imageSaver.writeToPhotoAlbum(coverImg)
+            ImageSaver.shared.writeToPhotoAlbum(coverImg)
             return true
         }
     }

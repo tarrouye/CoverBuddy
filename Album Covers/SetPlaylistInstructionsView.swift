@@ -10,6 +10,8 @@ import SwiftUI
 struct SetPlaylistInstructionsView: View {
     @Binding var rootIsActive : Bool
     
+    @ObservedObject var imageSaver : ImageSaver = ImageSaver.shared
+    
     @State var cards : [InstructCard] = [
         InstructCard(
             title: "Spotify (Desktop)",
@@ -69,25 +71,30 @@ struct SetPlaylistInstructionsView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical) {
+        ScrollView(imageSaver.latestSaveSuceeded ? .vertical : []) {
             VStack() {
-                /*Text("How to add your Covers to your Playlists.")
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .font(.title)
-                    .padding(.top)*/
-                
-                Text("Your selected covers have been exported to your Photo Library.\n\nRead on to learn how to set them as your Playlist covers in Spotify or Apple Music!")
-                    .multilineTextAlignment(.leading)
-                    .padding()
-                
-                ForEach(self.cards.indices, id: \.self) { card in
-                    InstructCardView(cardInfo: self.$cards[card])
+                if imageSaver.latestSaveSuceeded {
+                    Text("Your selected covers have been exported to your Photo Library.\n\nRead on to learn how to set them as your Playlist covers in Spotify or Apple Music!")
+                        .multilineTextAlignment(.leading)
+                        .padding()
+                    
+                    ForEach(self.cards.indices, id: \.self) { card in
+                        InstructCardView(cardInfo: self.$cards[card])
+                    }
+                } else {
+                    Text("Image Save Failure")
+                        .font(.title2)
+                        .padding()
+                        .padding(.top)
+                    
+                    Text("Your custom cover failed the export to the Photo Library.\n\nPlease check in Settings that you have granted the app appropriate permissions.\n\nIf the issue persists, please contact Support or file Feedback.")
+                        .multilineTextAlignment(.leading)
+                        .padding()
                 }
                 
                 // Got it button
                 Button(action: dismissSelf) {
-                    Label("All set up", systemImage: "checkmark.circle.fill")
+                    Label(imageSaver.latestSaveSuceeded ? "All set up" : "Understood", systemImage: "checkmark.circle.fill")
                         .foregroundColor(Color.white)
                         .font(.headline)
                         .padding()
