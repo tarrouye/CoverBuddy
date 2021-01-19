@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 struct CoverProperties : Hashable {
+    static let defaultAlignmentPadding : CGFloat = 100
+    
     // top and bottom text
     var topText : String = "My Dope"
     var botText : String = "Playlist"
@@ -34,7 +36,11 @@ struct CoverProperties : Hashable {
     var topXOffset : CGFloat = 100
     var botXOffset : CGFloat = 100
     
-    var textSidePadding : CGFloat = 100
+    var topLeftSidePadding : CGFloat = 100
+    var topRightSidePadding : CGFloat = 0
+    
+    var botLeftSidePadding : CGFloat = 100
+    var botRightSidePadding : CGFloat = 0
     
     // background image for cover
     var backgroundImgURL : String = "alexandru-acea"
@@ -110,7 +116,10 @@ func PropertiesFromCover(_ cover : Cover) -> CoverProperties {
     props.botFontColor = unarchiveColor(cover.botFontColor)
     props.topFontSize = CGFloat(cover.topFontSize)
     props.botFontSize = CGFloat(cover.botFontSize)
-    props.textSidePadding = CGFloat(cover.textSidePadding)
+    props.topLeftSidePadding = CGFloat(cover.topLeftSidePadding)
+    props.topRightSidePadding = CGFloat(cover.topRightSidePadding)
+    props.botLeftSidePadding = CGFloat(cover.botLeftSidePadding)
+    props.botRightSidePadding = CGFloat(cover.botRightSidePadding)
     props.topXOffset = CGFloat(cover.topXOffset)
     props.botXOffset = CGFloat(cover.botXOffset)
     props.backgroundImgURL = cover.backgroundImgURL ?? "adrien-converse"
@@ -138,7 +147,10 @@ func CoverFromProperties(_ props : CoverProperties) -> Cover {
     cover.botFontColor = archiveColor(props.botFontColor)
     cover.topFontSize = Float(props.topFontSize)
     cover.botFontSize = Float(props.botFontSize)
-    cover.textSidePadding = Float(props.textSidePadding)
+    cover.topLeftSidePadding = Float(props.topLeftSidePadding)
+    cover.topRightSidePadding = Float(props.topRightSidePadding)
+    cover.botLeftSidePadding = Float(props.botLeftSidePadding)
+    cover.botRightSidePadding = Float(props.botRightSidePadding)
     cover.topXOffset = Float(props.topXOffset)
     cover.botXOffset = Float(props.botXOffset)
     cover.backgroundImgURL = props.backgroundImgURL
@@ -178,7 +190,7 @@ func cgDrawCoverImage(_ image : UIImage, _ cover : CoverProperties) -> UIImage? 
     
     
         // Draw top text
-        let topTextRect = CGRect(x: cover.textSidePadding, y: cover.topPos - topFont.lineHeight / 2, width: canvas.width - cover.textSidePadding * 2, height: topFont.lineHeight)
+        let topTextRect = CGRect(x: cover.topLeftSidePadding, y: cover.topPos - topFont.lineHeight / 2, width: canvas.width - cover.topLeftSidePadding - cover.topRightSidePadding, height: topFont.lineHeight)
         
         // Draw top string
         cover.topText.draw(in: topTextRect, withAttributes: topTextAttributes)
@@ -197,7 +209,7 @@ func cgDrawCoverImage(_ image : UIImage, _ cover : CoverProperties) -> UIImage? 
         ] as [NSAttributedString.Key : Any]
         
         // Draw bottom text
-        let botTextRect = CGRect(x: cover.textSidePadding, y: cover.botPos - botFont.lineHeight / 2, width: canvas.width - cover.textSidePadding * 2, height: botFont.lineHeight)
+        let botTextRect = CGRect(x: cover.botLeftSidePadding, y: cover.botPos - botFont.lineHeight / 2, width: canvas.width - cover.botLeftSidePadding - cover.botRightSidePadding, height: botFont.lineHeight)
         
         cover.botText.draw(in: botTextRect, withAttributes: botTextAttributes)
     }

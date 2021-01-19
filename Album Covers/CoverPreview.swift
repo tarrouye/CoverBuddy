@@ -85,10 +85,10 @@ struct CoverPreview: View {
                         // text boxes
                         ZStack {
                             
-                            HStack {
+                            HStack(spacing: 0) {
                                 // Simulate sidePadding
                                 Spacer()
-                                    .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
+                                    .frame(width: scaleAgainstWidth(withProperties!.topLeftSidePadding, geometry))
                                 
                                 VStack {
                                     // Use spacers to position text as it would be from parameters
@@ -97,8 +97,9 @@ struct CoverPreview: View {
                                     
                                     Text(withProperties!.topText)
                                         .font(Font(UIFont(name: withProperties!.topFontName, size: scaleAgainstWidth(withProperties!.topFontSize, geometry))!))
+                                        .fixedSize()
                                         .foregroundColor(Color(withProperties!.topFontColor))
-                                        .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.textSidePadding, geometry) * 2, height: topFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.topTextAlignment))
+                                        .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.topRightSidePadding + withProperties!.topLeftSidePadding, geometry), height: topFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.topTextAlignment))
                                     
                                     Spacer()
                                         .frame(height: scaleAgainstWidth(1500 - withProperties!.topPos, geometry))
@@ -106,15 +107,16 @@ struct CoverPreview: View {
                                 
                                 // Simulate sidePadding
                                 Spacer()
-                                    .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
+                                    .frame(width: scaleAgainstWidth(withProperties!.topRightSidePadding, geometry))
                             }
+                            .frame(width: coverSize(geometry))
                         
                         
                         
-                            HStack {
+                            HStack(spacing: 0) {
                                 // Simulate sidePadding
                                 Spacer()
-                                    .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
+                                    .frame(width: scaleAgainstWidth(withProperties!.botLeftSidePadding, geometry))
                                 
                                 VStack {
                                     // Use spacers to position text as it would be from parameters
@@ -126,7 +128,7 @@ struct CoverPreview: View {
                                         .fixedSize()
                                         .font(Font(UIFont(name: withProperties!.botFontName, size: scaleAgainstWidth(withProperties!.botFontSize, geometry))!))
                                         .foregroundColor(Color(withProperties!.botFontColor))
-                                        .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.textSidePadding, geometry) * 2, height: botFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.botTextAlignment))
+                                        .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.botRightSidePadding + withProperties!.botLeftSidePadding, geometry), height: botFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.botTextAlignment))
                                     
                                     Spacer()
                                         .frame(height: scaleAgainstWidth(1500 - withProperties!.botPos, geometry))
@@ -135,8 +137,9 @@ struct CoverPreview: View {
                                 
                                 // Simulate sidePadding
                                 Spacer()
-                                    .frame(width: scaleAgainstWidth(withProperties!.textSidePadding, geometry))
+                                    .frame(width: scaleAgainstWidth(withProperties!.botRightSidePadding, geometry))
                             }
+                            .frame(width: coverSize(geometry))
                             
                         }
                         .frame(width: coverSize(geometry), height: coverSize(geometry), alignment: .center)

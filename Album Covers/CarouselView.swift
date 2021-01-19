@@ -20,6 +20,8 @@ struct CarouselView<Content: View>: View {
     let content: Content
 
     @GestureState private var translation: CGFloat = 0
+    
+    
 
     init(cardCount: Int, currentIndex: Binding<Int>, action: ((Int) -> Void)? = nil, @ViewBuilder content: () -> Content) {
         self.cardCount = cardCount
@@ -52,9 +54,14 @@ struct CarouselView<Content: View>: View {
                         if (self.action != nil) {
                             self.action!(curbedIndex)
                         }
+                        
+                        withAnimation {
+                            self.currentIndex = curbedIndex
+                        }
+                        
                     }
                     
-                    self.currentIndex = curbedIndex
+                    
                 }
             )
             .clipShape(Rectangle())

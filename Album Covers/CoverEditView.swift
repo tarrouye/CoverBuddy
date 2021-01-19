@@ -11,20 +11,39 @@ import SwiftUI
 
 struct MyTextField : View {
     var placeholder : String
-    @Binding var text : String
+    @ObservedObject var textBindingManager : TextBindingManager
+    
    
     @Binding var alignment: NSTextAlignment
-    
+
     var body : some View {
         HStack {
             if (alignment == .right || alignment == .center) {
                 Spacer()
             }
             
-            TextField(placeholder, text: $text)
+            TextField(placeholder, text: $textBindingManager.text)
                 .multilineTextAlignment((alignment == .left) ? .leading : ((alignment == .right) ? .trailing : .center))
-                .background(text.isEmpty ? Color.white.opacity(0.5) : Color.clear)
-                .fixedSize()
+                .background(textBindingManager.text.isEmpty ? Color.white.opacity(0.5) : Color.clear)
+                .overlay(
+                    Group {
+                        if (textBindingManager.alertMessage != nil) {
+                            Text(textBindingManager.alertMessage!)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+                                .padding(.vertical, 2)
+                                .background(BackgroundBlurView().background(Color.red.opacity(0.5)).clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous)))
+                                .offset(y: -35)
+                                .transition(.scale)
+                                //.animation(.linear)
+                        }
+                    }
+                )
+                
+                //.fixedSize()
             
             if (alignment == .left || alignment == .center) {
                 Spacer()
@@ -39,6 +58,14 @@ struct CoverEditView: View {
     @Binding var rootIsActive : Bool
     
     private var passedValue : Any
+    
+    @State private var topGestureLastSnappedX : CGFloat = 0
+    @State private var botGestureLastSnappedX : CGFloat = 0
+
+    @State private var topGestureInitialAlignment : NSTextAlignment?
+    @State private var botGestureInitialAlignment : NSTextAlignment?
+
+    private var alignSnapThreshold : CGFloat = 50
     
     // Initializers
     init(withProperties : CoverProperties, rootIsActive : Binding<Bool>) {
@@ -87,25 +114,77 @@ struct CoverEditView: View {
                             Image(model.backgroundImage!)
                                 .resizable()
                                 .scaledToFit()
+                                .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
                                 
                             
                             // Text box one
-                            HStack {
+                            HStack(spacing: 0) {
                                 // Simulate sidePadding
                                 Spacer()
-                                    .frame(width: model.sidePadding(geometry))
+                                    .frame(width: model.topLeftSidePadding(geometry))
+                                    .animation(.none)
                                 
                                 VStack {
                                     // Use spacers to position text as it would be from parameters
                                     Spacer()
                                         .frame(height: model.topPosition(geometry))
                                     
-                                    MyTextField(placeholder: "Text One", text: $model.topText, alignment: $model.topTextAlignment)
+                                    MyTextField(placeholder: "Text One", textBindingManager: model.topTextBindingManager, alignment: $model.topTextAlignment)
                                         .font(model.topFont(geometry))
                                         .foregroundColor(model.topCol)
-                                        .frame(width: model.textFieldWidth(geometry), height: model.topFontHeight(geometry), alignment: model.topFrameAlignment)
+                                        .frame(width: model.topTextFieldWidth(geometry), height: model.topFontHeight(geometry), alignment: model.topFrameAlignment)
                                         .simultaneousGesture(DragGesture(minimumDistance: 0.2).onChanged { gesture in
+                                            // vertical dragging
                                             model.topPos = min(max(CGFloat(model.topFontSize / 2), model.topPos + gesture.translation.height), 1500 - CGFloat(model.topFontSize / 2))
+                                            
+                                            // horizontal dragging w/ alignment snapping (somewhat janky :^D)
+                                            let gesture_x = gesture.location.x / model.coverSize(geometry)
+                                            
+                                            if (topGestureInitialAlignment == nil) {
+                                                self.topGestureInitialAlignment = model.topTextAlignment
+                                                self.topGestureLastSnappedX = gesture_x
+                                            } else {
+                                                if (abs(gesture_x - self.topGestureLastSnappedX) > 0.1) {
+                                                    var targetAlignment = model.topTextAlignment
+                                                    
+                                                    if (topGestureInitialAlignment == .right) {
+                                                        if (gesture.translation.width < -(self.alignSnapThreshold * 2)) {
+                                                            targetAlignment = .left
+                                                        } else if (gesture.translation.width < -self.alignSnapThreshold) {
+                                                            targetAlignment = .center
+                                                        } else {
+                                                            targetAlignment = .right
+                                                        }
+                                                    } else if (topGestureInitialAlignment == .center) {
+                                                        if (gesture.translation.width < -self.alignSnapThreshold) {
+                                                            targetAlignment = .left
+                                                        } else if (gesture.translation.width > self.alignSnapThreshold) {
+                                                            targetAlignment = .right
+                                                        } else {
+                                                            targetAlignment = .center
+                                                        }
+                                                    } else if (topGestureInitialAlignment == .left) {
+                                                        if (gesture.translation.width > self.alignSnapThreshold * 2) {
+                                                            targetAlignment = .right
+                                                        } else if (gesture.translation.width > self.alignSnapThreshold) {
+                                                            targetAlignment = .center
+                                                        } else {
+                                                            targetAlignment = .left
+                                                        }
+                                                    }
+                                                    
+                                                    if (model.topTextAlignment != targetAlignment) {
+                                                        withAnimation {
+                                                            model.topTextAlignment = targetAlignment
+                                                        }
+                                                    }
+                                                    
+                                                    self.topGestureLastSnappedX = gesture_x
+                                                }
+                                            }
+                                        }
+                                        .onEnded { gesture in
+                                            self.topGestureInitialAlignment = nil
                                         })
                                     
                                     Spacer()
@@ -114,27 +193,79 @@ struct CoverEditView: View {
                                 
                                 // Simulate sidePadding
                                 Spacer()
-                                    .frame(width: model.sidePadding(geometry))
+                                    .frame(width: model.topRightSidePadding(geometry))
+                                    .animation(.none)
                             }
+                            .frame(width: model.coverSize(geometry))
 
                                 
                             // Text box two
-                            HStack {
+                            HStack(spacing: 0) {
                                 // Simulate sidePadding
                                 Spacer()
-                                    .frame(width: model.sidePadding(geometry))
+                                    .frame(width: model.botLeftSidePadding(geometry))
                                 
                                 VStack {
                                     // Use spacers to position text as it would be from parameters
                                     Spacer()
                                         .frame(height: model.botPosition(geometry))
                                     
-                                    MyTextField(placeholder: "Text Two", text: $model.botText, alignment: $model.botTextAlignment)
+                                    MyTextField(placeholder: "Text Two", textBindingManager: model.botTextBindingManager, alignment: $model.botTextAlignment)
                                         .font(model.botFont(geometry))
                                         .foregroundColor(model.botCol)
-                                        .frame(width: model.textFieldWidth(geometry), height: model.botFontHeight(geometry), alignment: model.botFrameAlignment)
+                                        .frame(width: model.botTextFieldWidth(geometry), height: model.botFontHeight(geometry), alignment: model.botFrameAlignment)
                                         .simultaneousGesture(DragGesture(minimumDistance: 0.2).onChanged { gesture in
+                                            // vertical dragging
                                             model.botPos = min(max(CGFloat(model.botFontSize / 2), model.botPos + gesture.translation.height), 1500 - CGFloat(model.botFontSize / 2))
+                                            
+                                            // horizontal dragging w/ alignment snapping (somewhat janky :^D)
+                                            let gesture_x = gesture.location.x / model.coverSize(geometry)
+                                            
+                                            if (botGestureInitialAlignment == nil) {
+                                                botGestureInitialAlignment = model.botTextAlignment
+                                                self.botGestureLastSnappedX = gesture_x
+                                            } else {
+                                                if (abs(gesture_x - self.botGestureLastSnappedX) > 0.1) {
+                                                    var targetAlignment = model.botTextAlignment
+                                                    
+                                                    if (botGestureInitialAlignment == .right) {
+                                                        if (gesture.translation.width < -(self.alignSnapThreshold * 2)) {
+                                                            targetAlignment = .left
+                                                        } else if (gesture.translation.width < -self.alignSnapThreshold) {
+                                                            targetAlignment = .center
+                                                        } else {
+                                                            targetAlignment = .right
+                                                        }
+                                                    } else if (botGestureInitialAlignment == .center) {
+                                                        if (gesture.translation.width < -self.alignSnapThreshold) {
+                                                            targetAlignment = .left
+                                                        } else if (gesture.translation.width > self.alignSnapThreshold) {
+                                                            targetAlignment = .right
+                                                        } else {
+                                                            targetAlignment = .center
+                                                        }
+                                                    } else if (botGestureInitialAlignment == .left) {
+                                                        if (gesture.translation.width > self.alignSnapThreshold * 2) {
+                                                            targetAlignment = .right
+                                                        } else if (gesture.translation.width > self.alignSnapThreshold) {
+                                                            targetAlignment = .center
+                                                        } else {
+                                                            targetAlignment = .left
+                                                        }
+                                                    }
+                                                    
+                                                    if (model.botTextAlignment != targetAlignment) {
+                                                        withAnimation {
+                                                            model.botTextAlignment = targetAlignment
+                                                        }
+                                                    }
+                                                    
+                                                    self.botGestureLastSnappedX = gesture_x
+                                                }
+                                            }
+                                        }
+                                        .onEnded { gesture in
+                                            self.botGestureInitialAlignment = nil
                                         })
                                     
                                     Spacer()
@@ -144,11 +275,11 @@ struct CoverEditView: View {
                                 
                                 // Simulate sidePadding
                                 Spacer()
-                                    .frame(width: model.sidePadding(geometry))
+                                    .frame(width: model.botRightSidePadding(geometry))
                             }
+                            .frame(width: model.coverSize(geometry))
                         }
                         .frame(width: model.coverSize(geometry), height: model.coverSize(geometry), alignment: .center)
-                        .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
                         .shadow(radius: 35)
                         .padding(.top, 25)
                     
@@ -161,13 +292,13 @@ struct CoverEditView: View {
 
                         HStack {
 
-                            TextToolsView(colPickTitle: $model.topText, colPickDefaultTitle: "Text one", colPicked: $model.topCol, fontDisplayName: $model.topFontDisplayName, fontPostscriptName: $model.topFontName, fontSize: $model.topFontSize, textAlignment: $model.topTextAlignment, rounding: rounding)
+                            TextToolsView(colPickTitle: $model.topTextBindingManager.text, colPickDefaultTitle: "Text one", colPicked: $model.topCol, fontDisplayName: $model.topFontDisplayName, fontPostscriptName: $model.topFontName, fontSize: $model.topFontSize, textAlignment: $model.topTextAlignment, rounding: rounding)
                                 .frame(width: model.coverSize(geometry) / 2 - 10)
                                 .padding(.trailing, 5)
 
                             Divider()
 
-                            TextToolsView(colPickTitle: $model.botText, colPickDefaultTitle: "Text two", colPicked: $model.botCol, fontDisplayName: $model.botFontDisplayName, fontPostscriptName: $model.botFontName, fontSize: $model.botFontSize, textAlignment: $model.botTextAlignment, rounding: rounding)
+                            TextToolsView(colPickTitle: $model.botTextBindingManager.text, colPickDefaultTitle: "Text two", colPicked: $model.botCol, fontDisplayName: $model.botFontDisplayName, fontPostscriptName: $model.botFontName, fontSize: $model.botFontSize, textAlignment: $model.botTextAlignment, rounding: rounding)
                                 .frame(width: model.coverSize(geometry) / 2 - 10)
                                 .padding(.leading, 5)
 

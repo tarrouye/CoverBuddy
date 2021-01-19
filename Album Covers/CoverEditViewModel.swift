@@ -8,6 +8,59 @@
 import SwiftUI
 import Foundation
 
+class TextBindingManager: ObservableObject {
+    
+    var font : UIFont
+    var widthLimit : CGFloat
+    
+    @Published var alertMessage : String?
+    @Published var text = "" {
+        didSet {
+            if textWidth() > (widthLimit - 50) {
+                text = oldValue
+                
+                if (self.alertMessage == nil) {
+                    withAnimation {
+                        self.alertMessage = "Your text is too long.\nTry reducing the font size."
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        withAnimation {
+                            self.alertMessage = nil
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+
+    init(font: UIFont = UIFont.systemFont(ofSize: 216), widthLimit : CGFloat = 1500){
+        self.font = font
+        self.widthLimit = widthLimit
+    }
+    
+    func textWidth() -> CGFloat {
+        let ns = NSString(string: self.text)
+        let size = ns.size(withAttributes: [NSAttributedString.Key.font: self.font])
+        
+        return size.width
+    }
+    
+    func update(font : UIFont, width: CGFloat) {
+        self.font = font
+        self.widthLimit = width
+    }
+    
+    func update(font : UIFont) {
+        self.font = font
+    }
+    
+    func update(width: CGFloat) {
+        self.widthLimit = width
+    }
+}
+
 class ImageColorCache {
     public static let shared = ImageColorCache()
     
@@ -28,22 +81,78 @@ class CoverEditViewModel : ObservableObject {
     private var withProperties : CoverProperties?
     private var existingManagedObject : ObservedObject<Cover>?
     
-    @Published  var topText : String = ""
-    @Published  var botText : String = ""
-    
     @Published  var topCol : Color = .white
     @Published  var botCol : Color = .white
     
-    @Published  var topFontName : String?
-    @Published  var botFontName : String?
+    @Published  var topFontName : String? {
+        didSet {
+            updateTopLineLimit()
+        }
+    }
+    @Published  var botFontName : String? {
+        didSet {
+            updateBotLineLimit()
+        }
+    }
+    
     @Published  var topFontDisplayName : String?
     @Published  var botFontDisplayName : String?
     
-    @Published  var topFontSize : Int = 0
-    @Published  var botFontSize : Int = 0
+    @Published  var topFontSize : Int = 0 {
+        didSet {
+            updateTopLineLimit()
+        }
+    }
+    @Published  var botFontSize : Int = 0 {
+        didSet {
+            updateBotLineLimit()
+        }
+    }
     
-    @Published  var topTextAlignment : NSTextAlignment = .left
-    @Published  var botTextAlignment : NSTextAlignment = .left
+    @Published  var topTextAlignment : NSTextAlignment = .left {
+        didSet {
+            switch (topTextAlignment) {
+            case .left:
+                withProperties!.topLeftSidePadding = CoverProperties.defaultAlignmentPadding
+                withProperties!.topRightSidePadding = CoverProperties.defaultAlignmentPadding * 1.1
+            case .center:
+                withProperties!.topLeftSidePadding = 0
+                withProperties!.topRightSidePadding = 0
+            case .right:
+                withProperties!.topLeftSidePadding = CoverProperties.defaultAlignmentPadding * 1.1
+                withProperties!.topRightSidePadding = CoverProperties.defaultAlignmentPadding
+            case .justified:
+                fallthrough
+            case .natural:
+                fallthrough
+            @unknown default:
+                withProperties!.topLeftSidePadding = 0
+                withProperties!.topRightSidePadding = 0
+            }
+        }
+    }
+    @Published  var botTextAlignment : NSTextAlignment = .left {
+        didSet {
+            switch (botTextAlignment) {
+            case .left:
+                withProperties!.botLeftSidePadding = CoverProperties.defaultAlignmentPadding
+                withProperties!.botRightSidePadding = CoverProperties.defaultAlignmentPadding * 1.1
+            case .center:
+                withProperties!.botLeftSidePadding = 0
+                withProperties!.botRightSidePadding = 0
+            case .right:
+                withProperties!.botLeftSidePadding = CoverProperties.defaultAlignmentPadding * 1.1
+                withProperties!.botRightSidePadding = CoverProperties.defaultAlignmentPadding
+            case .justified:
+                fallthrough
+            case .natural:
+                fallthrough
+            @unknown default:
+                withProperties!.botLeftSidePadding = 0
+                withProperties!.botRightSidePadding = 0
+            }
+        }
+    }
     
     @Published  var topPos : CGFloat = 0
     @Published  var botPos : CGFloat = 0
@@ -51,9 +160,32 @@ class CoverEditViewModel : ObservableObject {
     @Published  var dominantImageColor : Color = .white
     @Published  var buttonLabelColor : Color = .blue
     
+    @ObservedObject var topTextBindingManager = TextBindingManager()
+    @ObservedObject var botTextBindingManager = TextBindingManager()
+    
     var coverWidthPercentage : CGFloat = 0.85
     
     private var isExporting : Bool = false
+    
+    func updateTopLineLimit() {
+        if let cont = UIFont(name: topFontName ?? "Helvetica Bold", size: CGFloat(topFontSize)) {
+            let max_width = 1500 - withProperties!.topLeftSidePadding - withProperties!.topRightSidePadding
+            
+            topTextBindingManager.update(font: cont, width: max_width)
+        }
+    }
+    
+    func updateBotLineLimit() {
+        if let cont = UIFont(name: botFontName ?? "Helvetica", size: CGFloat(botFontSize)) {
+            let max_width = 1500 - withProperties!.botLeftSidePadding - withProperties!.botRightSidePadding
+            
+            botTextBindingManager.update(font: cont, width: max_width)
+        }
+    }
+    
+    var topAlert : String? {
+        topTextBindingManager.alertMessage
+    }
     
     // Accessed properties
     public var loadedData : Bool {
@@ -133,8 +265,20 @@ class CoverEditViewModel : ObservableObject {
         return num * (coverSize(geo) / 1500)
     }
     
-    func sidePadding(_ geo : GeometryProxy) -> CGFloat {
-        return scaled(withProperties!.textSidePadding, geo)
+    func topLeftSidePadding(_ geo : GeometryProxy) -> CGFloat {
+        return scaled(withProperties!.topLeftSidePadding, geo)
+    }
+    
+    func topRightSidePadding(_ geo : GeometryProxy) -> CGFloat {
+        return scaled(withProperties!.topRightSidePadding, geo)
+    }
+    
+    func botLeftSidePadding(_ geo : GeometryProxy) -> CGFloat {
+        return scaled(withProperties!.botLeftSidePadding, geo)
+    }
+    
+    func botRightSidePadding(_ geo : GeometryProxy) -> CGFloat {
+        return scaled(withProperties!.botRightSidePadding, geo)
     }
     
     func fontHeight(_ name : String?, _ size : Int, _ geo : GeometryProxy) -> CGFloat {
@@ -165,8 +309,12 @@ class CoverEditViewModel : ObservableObject {
         return Font(UIFont(name: botFontName ?? "Helvetica", size: scaled(CGFloat(botFontSize), geo))!)
     }
     
-    func textFieldWidth(_ geo : GeometryProxy) -> CGFloat {
-        return (coverSize(geo) - sidePadding(geo) * 2)
+    func topTextFieldWidth(_ geo : GeometryProxy) -> CGFloat {
+        return (coverSize(geo) - topLeftSidePadding(geo) - topRightSidePadding(geo))
+    }
+    
+    func botTextFieldWidth(_ geo : GeometryProxy) -> CGFloat {
+        return (coverSize(geo) - botLeftSidePadding(geo) - botRightSidePadding(geo))
     }
     
     func textAlignToFrameAlign(_ align : NSTextAlignment) -> Alignment {
@@ -184,8 +332,8 @@ class CoverEditViewModel : ObservableObject {
     
     // Set all customizations to default values / empty where applicable
     func clearAllCustomizations() {
-        self.topText = ""
-        self.botText = ""
+        self.topTextBindingManager.text = ""
+        self.botTextBindingManager.text = ""
         
         self.topCol = Color.white
         self.botCol = Color.white
@@ -203,13 +351,16 @@ class CoverEditViewModel : ObservableObject {
         
         self.topPos = 150
         self.botPos = 375
+        
+        updateTopLineLimit()
+        updateBotLineLimit()
     }
     
     // Sets all customizations to the value stored in withProperties
     // (so, whatever was passed in initially)
     func resetToInitialCoverValues() {
-        self.topText = withProperties!.topText
-        self.botText = withProperties!.botText
+        self.topTextBindingManager.text = withProperties!.topText
+        self.botTextBindingManager.text = withProperties!.botText
         
         self.topCol = Color(withProperties!.topFontColor)
         self.botCol = Color(withProperties!.botFontColor)
@@ -227,6 +378,9 @@ class CoverEditViewModel : ObservableObject {
         
         self.topPos = withProperties!.topPos
         self.botPos = withProperties!.botPos
+        
+        updateTopLineLimit()
+        updateBotLineLimit()
     }
     
     // Export cover with customizations
@@ -239,8 +393,8 @@ class CoverEditViewModel : ObservableObject {
         self.isExporting = true
         
         var copyOfProps = self.withProperties!
-        copyOfProps.topText = self.topText
-        copyOfProps.botText = self.botText
+        copyOfProps.topText = self.topTextBindingManager.text
+        copyOfProps.botText = self.botTextBindingManager.text
         copyOfProps.topFontColor = UIColor(self.topCol)
         copyOfProps.botFontColor = UIColor(self.botCol)
         copyOfProps.topFontName = self.topFontName!
@@ -271,6 +425,10 @@ class CoverEditViewModel : ObservableObject {
                     self.existingManagedObject!.wrappedValue.botFontSize = Float(copyOfProps.botFontSize)
                     self.existingManagedObject!.wrappedValue.topTextAlignment = alignToInt(copyOfProps.topTextAlignment)
                     self.existingManagedObject!.wrappedValue.botTextAlignment = alignToInt(copyOfProps.botTextAlignment)
+                    self.existingManagedObject!.wrappedValue.topLeftSidePadding = Float(copyOfProps.topLeftSidePadding)
+                    self.existingManagedObject!.wrappedValue.topRightSidePadding = Float(copyOfProps.topRightSidePadding)
+                    self.existingManagedObject!.wrappedValue.botLeftSidePadding = Float(copyOfProps.botLeftSidePadding)
+                    self.existingManagedObject!.wrappedValue.botRightSidePadding = Float(copyOfProps.botRightSidePadding)
                     self.existingManagedObject!.wrappedValue.topPos = Float(copyOfProps.topPos)
                     self.existingManagedObject!.wrappedValue.botPos = Float(copyOfProps.botPos)
                     

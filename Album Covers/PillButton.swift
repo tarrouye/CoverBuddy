@@ -25,6 +25,7 @@ struct PillButton : View {
             
             if (self.label != nil) {
                 Text(self.label!)
+                    .fontWeight(.semibold)
                     .padding(self.systemImage != nil ? .trailing : .horizontal, 10)
             }
         }
