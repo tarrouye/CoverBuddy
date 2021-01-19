@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import AudioToolbox
 
 struct CarouselView<Content: View>: View {
     // number of cards we will house
@@ -15,7 +14,12 @@ struct CarouselView<Content: View>: View {
     // binding to refer to currently selected / highlighted card
     @Binding var currentIndex: Int
     
+    var spacingOffset : CGFloat
+    var showPageDots : Bool
+    
     let action : ((Int) -> Void)?
+    
+    let bgView : AnyView?
     
     let content: Content
 
@@ -23,22 +27,47 @@ struct CarouselView<Content: View>: View {
     
     
 
-    init(cardCount: Int, currentIndex: Binding<Int>, action: ((Int) -> Void)? = nil, @ViewBuilder content: () -> Content) {
+    init(cardCount: Int, currentIndex: Binding<Int>, spacingOffset : CGFloat = 0, showPageDots: Bool = false, action: ((Int) -> Void)? = nil, bgView : AnyView? = nil, @ViewBuilder content: () -> Content) {
         self.cardCount = cardCount
         self._currentIndex = currentIndex
+        self.spacingOffset = spacingOffset
+        self.showPageDots = showPageDots
         self.action = action
+        self.bgView = bgView
         self.content = content()
     }
 
     var body: some View {
         GeometryReader { geometry in
-            HStack(spacing: -80) { // -80 spacing to show edges of prev/next cards
+            HStack(spacing: -spacingOffset) {
                 self.content.frame(width: geometry.size.width)
             }
-            .frame(width: geometry.size.width, alignment: .leading)
-            .offset(x: -CGFloat(self.currentIndex) * (geometry.size.width - 80))
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
+            .offset(x: -CGFloat(self.currentIndex) * (geometry.size.width - spacingOffset))
             .offset(x: self.translation)
             .animation(.linear(duration: 0.125))
+            .clipShape(Rectangle())
+            .overlay(
+                Group {
+                    if (self.showPageDots) {
+                        Spacer()
+                        
+                        HStack {
+                            ForEach(0..<self.cardCount, id: \.self) { index in
+                                Circle()
+                                    .fill(index == self.currentIndex ? Color.white : Color.gray)
+                                    .frame(width: 5, height: 5)
+                            }
+                        }
+                        .offset(y: 10)
+                    }
+                }
+            )
+            .background(Group {
+                if self.bgView != nil {
+                    self.bgView
+                }
+            })
             .gesture(
                 DragGesture().updating(self.$translation) { value, state, _ in
                     state = value.translation.width
@@ -64,8 +93,8 @@ struct CarouselView<Content: View>: View {
                     
                 }
             )
-            .clipShape(Rectangle())
             
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

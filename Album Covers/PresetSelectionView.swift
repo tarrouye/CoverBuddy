@@ -93,7 +93,7 @@ struct PresetSelectionView: View {
                 Spacer()
                 
                 // Previews
-                CarouselView(cardCount: collection.templates.count, currentIndex: $selectedCard) {
+                CarouselView(cardCount: collection.templates.count, currentIndex: $selectedCard, spacingOffset: 80) {
                     ForEach(collection.templates.indices) { i in
                         ZStack {
                             // Empty NavLink to trigger programmatically
