@@ -14,10 +14,8 @@ struct CoverPreview: View {
     @State private var coverImage : UIImage?
     @State private var backgroundImage : UIImage?
     
-    var coverWidthPercentage : CGFloat = 1.0
-    
     func coverSize(_ geo : GeometryProxy) -> CGFloat {
-        return min(geo.size.width, geo.size.height) * self.coverWidthPercentage
+        return min(geo.size.width, geo.size.height)
     }
     
     func scaleAgainstWidth(_ num : CGFloat, _ geo : GeometryProxy) -> CGFloat {
@@ -53,7 +51,6 @@ struct CoverPreview: View {
     func loadProperties() {
         if (cover != nil && !cover!.wrappedValue.isFault) {
             withProperties = PropertiesFromCover(cover!.wrappedValue)
-            print("Reloading properties for \(cover!.wrappedValue.id)")
         }
     }
     

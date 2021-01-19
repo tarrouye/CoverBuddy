@@ -47,9 +47,10 @@ struct LibraryView: View {
     
     func exportSelections() {
         if (!showingExportInstructions && selections.count > 0) {
-            libraryStore.exportItems(selections)
-            self.showingExportInstructions = true
+            self.showingExportInstructions = libraryStore.exportItems(selections)
             toggleEditMode()
+        } else {
+            self.showingExportInstructions = false
         }
     }
     
@@ -127,7 +128,6 @@ struct LibraryView: View {
                     .navigationTitle("My Designs")
                     .navigationBarTitleDisplayMode(.large)
                     .toolbar {
-                        
                         ToolbarItem(placement: .navigationBarLeading) {
                             if (self.isSelecting) {
                                 HStack {

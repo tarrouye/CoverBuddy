@@ -33,9 +33,6 @@ struct CoverProperties : Hashable {
     var topFontColor : UIColor = .white
     var botFontColor : UIColor = .white
     
-    var topXOffset : CGFloat = 100
-    var botXOffset : CGFloat = 100
-    
     var topLeftSidePadding : CGFloat = 100
     var topRightSidePadding : CGFloat = 0
     
@@ -119,8 +116,6 @@ func PropertiesFromCover(_ cover : Cover) -> CoverProperties {
     props.topRightSidePadding = CGFloat(cover.topRightSidePadding)
     props.botLeftSidePadding = CGFloat(cover.botLeftSidePadding)
     props.botRightSidePadding = CGFloat(cover.botRightSidePadding)
-    props.topXOffset = CGFloat(cover.topXOffset)
-    props.botXOffset = CGFloat(cover.botXOffset)
     props.backgroundImgURL = cover.backgroundImgURL ?? "adrien-converse"
     props.backgroundImgType = cover.backgroundImgType ?? "png"
     
@@ -148,8 +143,6 @@ func CoverFromProperties(_ props : CoverProperties) -> Cover {
     cover.topRightSidePadding = Float(props.topRightSidePadding)
     cover.botLeftSidePadding = Float(props.botLeftSidePadding)
     cover.botRightSidePadding = Float(props.botRightSidePadding)
-    cover.topXOffset = Float(props.topXOffset)
-    cover.botXOffset = Float(props.botXOffset)
     cover.backgroundImgURL = props.backgroundImgURL
     cover.backgroundImgType = props.backgroundImgType
     
@@ -272,7 +265,7 @@ func convertToThumbnail(_ imgMaybe : UIImage?, scaleFactor : CGFloat = 0.8) -> U
     return nil
 }
 
-func saveCoverImage(_ cover: Cover) {
+func saveCoverImage(_ cover: Cover) -> Bool {
     let imageSaver = ImageSaver()
     
     // try getting it from already made first
@@ -280,14 +273,17 @@ func saveCoverImage(_ cover: Cover) {
         if let coverImg = UIImage(data: imgData) {
             // try to write to photo album
             imageSaver.writeToPhotoAlbum(coverImg)
-        } else {
-                // failed to save cover image
-                let alert = UIAlertController(title: "Image Save Failure", message: "Your custom cover failed the export to the Photo Library. Please check in Settings that you have granted the app appropriate permissions.", preferredStyle: .alert)
-
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                UIApplication.shared.windows.first!.rootViewController!.present(alert, animated: true)
+            return true
         }
     }
+    
+    // failed to get image from cover
+    let alert = UIAlertController(title: "Image Export Failure", message: "Your custom cover failed to export to PNG. Please contact Support or file Feedback. We apologize for the inconvenience", preferredStyle: .alert)
+
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    UIApplication.shared.windows.first!.rootViewController!.present(alert, animated: true)
+    
+    return false
 }
 
 

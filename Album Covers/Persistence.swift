@@ -59,7 +59,7 @@ class PersistenceController {
         container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         container.viewContext.automaticallyMergesChangesFromParent = true
         
-        // Observe Core Data remote change notifications.
+        // Observe Core Data remote change notifications
         NotificationCenter.default.addObserver(
             self, selector: #selector(self.processRemoteChange),
             name: .NSPersistentStoreRemoteChange, object: container.persistentStoreCoordinator)

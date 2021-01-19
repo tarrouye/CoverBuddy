@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 
 // Wrap UIFontPickerController
+// TODO: Figure out why this doesnt show the search bar or the dismiss button when presented as a sheet
 struct FontPicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     

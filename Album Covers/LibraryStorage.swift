@@ -44,12 +44,16 @@ class LibraryStorage: NSObject, ObservableObject {
         PersistenceController.shared.saveContainer()
     }
     
-    func exportItems(_ selections : [UUID]) {
+    func exportItems(_ selections : [UUID]) -> Bool {
         for s in selections {
             if let ind = self.library.firstIndex(where: { $0.id == s }) {
-                saveCoverImage(self.library[ind])
+                if !saveCoverImage(self.library[ind]) {
+                    return false
+                }
             }
         }
+        
+        return true
     }
 }
 

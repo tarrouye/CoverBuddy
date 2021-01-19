@@ -18,7 +18,7 @@ struct CollectionsView: View {
             LazyVStack(alignment: .center, spacing: 0) {
                 ForEach(allCollections.indices) { i in
                     NavigationLink(destination: PresetSelectionView(rootIsActive: $rootIsActive, collection: allCollections[i])) {
-                        CollectionCard(collection: allCollections[i], rotationDegrees: Double(10 - (20 * (i % 2))))
+                        CollectionCardView(collection: allCollections[i], rotationDegrees: Double(10 - (20 * (i % 2))))
                             .padding(.horizontal)
                             .padding(.vertical, 7.5)
                             .animation(nil)

@@ -11,7 +11,6 @@
         <attribute name="botRightSidePadding" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="botText" optional="YES" attributeType="String"/>
         <attribute name="botTextAlignment" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="botXOffset" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="dateEdited" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="renderedImageData" optional="YES" attributeType="Binary"/>
@@ -23,9 +22,8 @@
         <attribute name="topRightSidePadding" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="topText" optional="YES" attributeType="String"/>
         <attribute name="topTextAlignment" optional="YES" attributeType="Integer 16" valueTransformerName="NSSecureUnarchiveFromDataTransformer" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="topXOffset" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Cover" positionX="-63" positionY="-9" width="128" height="374"/>
+        <element name="Cover" positionX="-63" positionY="-9" width="128" height="344"/>
     </elements>
 </model>

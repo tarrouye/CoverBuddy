@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CollectionCard : View {
+struct CollectionCardView : View {
     @State var collection : Collection!
     
     var rotationDegrees : Double
@@ -52,12 +52,5 @@ struct CollectionCard : View {
             )
             .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
             .contentShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-    }
-}
-
-
-struct CollectionCard_Previews: PreviewProvider {
-    static var previews: some View {
-        CollectionCard(collection: allCollections[0], rotationDegrees: 5)
     }
 }
