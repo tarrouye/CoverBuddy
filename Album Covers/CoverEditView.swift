@@ -9,6 +9,28 @@
 
 import SwiftUI
 
+struct TextFieldAlertView : View {
+    @ObservedObject var textBindingManager1 : TextBindingManager
+    @ObservedObject var textBindingManager2 : TextBindingManager
+    
+    var body : some View {
+        Group {
+            if (textBindingManager1.alertMessage != nil || textBindingManager2.alertMessage != nil) {
+                Text(textBindingManager1.alertMessage ?? textBindingManager2.alertMessage!)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                    .padding(.vertical, 2)
+                    .background(BackgroundBlurView().background(Color.red.opacity(0.5)).clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous)))
+                    .transition(.scale)
+                    //.animation(.linear)
+            }
+        }
+    }
+}
+
 struct MyTextField : View {
     var placeholder : String
     @ObservedObject var textBindingManager : TextBindingManager
@@ -25,23 +47,6 @@ struct MyTextField : View {
             TextField(placeholder, text: $textBindingManager.text)
                 .multilineTextAlignment((alignment == .left) ? .leading : ((alignment == .right) ? .trailing : .center))
                 .background(textBindingManager.text.isEmpty ? Color.white.opacity(0.5) : Color.clear)
-                .overlay(
-                    Group {
-                        if (textBindingManager.alertMessage != nil) {
-                            Text(textBindingManager.alertMessage!)
-                                .multilineTextAlignment(.center)
-                                .lineLimit(2)
-                                .font(.subheadline)
-                                .foregroundColor(.white)
-                                .padding(.horizontal)
-                                .padding(.vertical, 2)
-                                .background(BackgroundBlurView().background(Color.red.opacity(0.5)).clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous)))
-                                .offset(y: -35)
-                                .transition(.scale)
-                                //.animation(.linear)
-                        }
-                    }
-                )
                 
                 //.fixedSize()
             
@@ -114,7 +119,6 @@ struct CoverEditView: View {
                             Image(model.backgroundImage!)
                                 .resizable()
                                 .scaledToFit()
-                                .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
                                 
                             
                             // Text box one
@@ -280,6 +284,11 @@ struct CoverEditView: View {
                             .frame(width: model.coverSize(geometry))
                         }
                         .frame(width: model.coverSize(geometry), height: model.coverSize(geometry), alignment: .center)
+                        .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
+                        .overlay(
+                            TextFieldAlertView(textBindingManager1: model.topTextBindingManager, textBindingManager2: model.botTextBindingManager)
+                                .offset(y: -model.coverSize(geometry) / 2 + 25)
+                        )
                         .shadow(radius: 35)
                         .padding(.top, 25)
                     

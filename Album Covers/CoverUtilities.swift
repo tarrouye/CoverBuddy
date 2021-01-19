@@ -46,8 +46,7 @@ struct CoverProperties : Hashable {
     var backgroundImgURL : String = "alexandru-acea"
     var backgroundImgType : String = "png"
     
-    // hold UIImages which must be updated if the above values change
-    var renderedImage : UIImage?
+    var dateEdited : Date?
 }
 
 func alignToInt(_ align: NSTextAlignment) -> Int16 {
@@ -125,9 +124,7 @@ func PropertiesFromCover(_ cover : Cover) -> CoverProperties {
     props.backgroundImgURL = cover.backgroundImgURL ?? "adrien-converse"
     props.backgroundImgType = cover.backgroundImgType ?? "png"
     
-    if (cover.renderedImageData != nil) {
-        props.renderedImage = UIImage(data: cover.renderedImageData!)
-    }
+    props.dateEdited = cover.dateEdited
     
     return props
 }
@@ -155,10 +152,6 @@ func CoverFromProperties(_ props : CoverProperties) -> Cover {
     cover.botXOffset = Float(props.botXOffset)
     cover.backgroundImgURL = props.backgroundImgURL
     cover.backgroundImgType = props.backgroundImgType
-    
-    if (props.renderedImage != nil) {
-        cover.renderedImageData = props.renderedImage!.pngData()
-    }
     
     cover.dateEdited = Date()
     

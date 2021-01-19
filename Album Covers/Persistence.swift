@@ -7,7 +7,7 @@
 
 import CoreData
 
-struct PersistenceController {
+class PersistenceController {
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {
@@ -32,6 +32,13 @@ struct PersistenceController {
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
+        // Enable remote notifications
+        guard let description = container.persistentStoreDescriptions.first else {
+            fatalError("###\(#function): Failed to retrieve a persistent store description.")
+        }
+        //description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -48,6 +55,18 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        
+        container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        
+        // Observe Core Data remote change notifications.
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(self.processRemoteChange),
+            name: .NSPersistentStoreRemoteChange, object: container.persistentStoreCoordinator)
+    }
+    
+    @objc func processRemoteChange(notif: NSNotification) {
+        
     }
     
     public func saveContainer() {

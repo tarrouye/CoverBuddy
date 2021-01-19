@@ -43,13 +43,18 @@ struct CoverPreview: View {
     }
 
     func initialSetup() {
-        if (cover != nil && !cover!.wrappedValue.isFault) {
-            withProperties = PropertiesFromCover(cover!.wrappedValue)
-        }
+        loadProperties()
         
         // start loading image colors if not already when preview is displayed so that they are ready
         // for edit view
         loadImageColors()
+    }
+    
+    func loadProperties() {
+        if (cover != nil && !cover!.wrappedValue.isFault) {
+            withProperties = PropertiesFromCover(cover!.wrappedValue)
+            print("Reloading properties for \(cover!.wrappedValue.id)")
+        }
     }
     
     func loadImageColors() {
@@ -68,6 +73,11 @@ struct CoverPreview: View {
             Color(UIColor.systemBackground)
                 .onAppear() {
                     initialSetup()
+                }
+                .onReceive(LibraryStorage.shared.library.publisher) { _ in
+                    if (cover != nil && withProperties != nil && withProperties!.dateEdited != nil && cover!.wrappedValue.dateEdited != nil && withProperties!.dateEdited! != cover!.wrappedValue.dateEdited!) {
+                        loadProperties()
+                    }
                 }
             
             

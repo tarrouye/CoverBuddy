@@ -55,7 +55,7 @@ class LibraryStorage: NSObject, ObservableObject {
 
 extension LibraryStorage: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    guard let libItems = controller.fetchedObjects as? [Cover] else { return }
+        guard let libItems = controller.fetchedObjects as? [Cover] else { return }
         
         library = libItems
     }
