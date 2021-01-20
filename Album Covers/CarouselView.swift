@@ -14,7 +14,7 @@ struct CarouselView<Content: View>: View {
     // binding to refer to currently selected / highlighted card
     @Binding var currentIndex: Int
     
-    var spacingOffset : CGFloat
+    @Binding var spacingOffset : CGFloat
     var showPageDots : Bool
     
     let action : ((Int) -> Void)?
@@ -27,10 +27,10 @@ struct CarouselView<Content: View>: View {
     
     
 
-    init(cardCount: Int, currentIndex: Binding<Int>, spacingOffset : CGFloat = 0, showPageDots: Bool = false, action: ((Int) -> Void)? = nil, bgView : AnyView? = nil, @ViewBuilder content: () -> Content) {
+    init(cardCount: Int, currentIndex: Binding<Int>, spacingOffset : Binding<CGFloat> = .constant(0), showPageDots: Bool = false, action: ((Int) -> Void)? = nil, bgView : AnyView? = nil, @ViewBuilder content: () -> Content) {
         self.cardCount = cardCount
         self._currentIndex = currentIndex
-        self.spacingOffset = spacingOffset
+        self._spacingOffset = spacingOffset
         self.showPageDots = showPageDots
         self.action = action
         self.bgView = bgView

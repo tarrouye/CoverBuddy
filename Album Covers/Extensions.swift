@@ -7,6 +7,18 @@
 
 import Foundation
 import UIKit
+import SwiftUI
+
+// For responsive layout
+
+enum LayoutType {
+    case compact
+    case wide
+}
+
+func columnLayout(_ geo : GeometryProxy, _ horizontalSizeClass : UserInterfaceSizeClass?) -> LayoutType {
+    return ((UIDevice.current.userInterfaceIdiom == .pad || geo.size.width > geo.size.height) && horizontalSizeClass != .compact) ? .wide : .compact
+}
 
 // extend Cover to always assign a UUID and date on creation
 extension Cover {

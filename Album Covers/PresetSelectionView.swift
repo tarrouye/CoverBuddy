@@ -28,6 +28,8 @@ func nameFromImgFileName(_ imgName : String) -> String {
 struct PresetSelectionView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    
     @Binding var rootIsActive : Bool
     
     var collection : Collection!
@@ -64,10 +66,10 @@ struct PresetSelectionView: View {
                 }
             }
         }
-        
-        
-        
-        
+    }
+    
+    func coverSize(_ geo : GeometryProxy) -> CGFloat {
+        return min(geo.size.height * 0.8, min(geo.size.width * 0.8, (geo.size.width < geo.size.height ? geo.size.height * 0.6 : geo.size.height * 0.65)))
     }
     
     var body: some View {
@@ -93,7 +95,7 @@ struct PresetSelectionView: View {
                 Spacer()
                 
                 // Previews
-                CarouselView(cardCount: collection.templates.count, currentIndex: $selectedCard, spacingOffset: 80) {
+                CarouselView(cardCount: collection.templates.count, currentIndex: $selectedCard, spacingOffset: Binding(get: { (geometry.size.width - coverSize(geometry)) * (geometry.size.width < geometry.size.height ? 1.1 : 0.8) }, set : { _ in })) {
                     ForEach(collection.templates.indices) { i in
                         ZStack {
                             // Empty NavLink to trigger programmatically
@@ -105,7 +107,7 @@ struct PresetSelectionView: View {
                             VStack {
                                 // Thumbnail
                                 CoverPreview(withProperties: collection.templates[i])
-                                    .frame(width: min(geometry.size.width, geometry.size.height) * 0.8, height: min(geometry.size.width, geometry.size.height) * 0.8)
+                                    .frame(width: coverSize(geometry), height: coverSize(geometry))
                                     .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
                                 
                                 // Artist credit
@@ -125,7 +127,7 @@ struct PresetSelectionView: View {
                         }
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: 400)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(EmptyView())
                 
                 Spacer()
@@ -138,7 +140,7 @@ struct PresetSelectionView: View {
                         .foregroundColor(buttonForegroundColor[selectedCard] ?? .white)
                         .font(.headline)
                         .padding()
-                        .frame(width: min(geometry.size.width, geometry.size.height) * 0.8)
+                        .frame(width: coverSize(geometry))
                         .background(buttonBackgroundColor[selectedCard] ?? .blue)
                         .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous).inset(by: 1))
                         .padding(1)

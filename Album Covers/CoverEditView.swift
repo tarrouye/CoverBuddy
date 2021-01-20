@@ -9,6 +9,29 @@
 
 import SwiftUI
 
+struct SpicyStack<Content: View> : View {
+    let content: Content
+    
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+    
+    var body : some View {
+        GeometryReader { proxy in
+            if (proxy.size.width > proxy.size.height) {
+                HStack(alignment: .center) {
+                    self.content
+                }.frame(width: proxy.size.width, height: proxy.size.height)
+            } else {
+                VStack(alignment: .center) {
+                    self.content
+                }.frame(width: proxy.size.width, height: proxy.size.height)
+            }
+            
+        }
+    }
+}
+
 struct CoverEditView: View {
     @StateObject var model = CoverEditViewModel()
     
@@ -64,7 +87,7 @@ struct CoverEditView: View {
                 
                 
                 if (model.loadedData) {
-                    VStack(alignment: .center) {
+                    SpicyStack {
                         // Preview
                         ZStack {
                             // background image
@@ -245,46 +268,44 @@ struct CoverEditView: View {
                         .padding(.top, 25)
                     
                     
-                    
-                    
-                    
-                    
                         // Editing tools
+                        VStack {
+                            Spacer()
+                            
+                            HStack {
 
-                        HStack {
+                                TextToolsView(colPickTitle: $model.topTextBindingManager.text, colPickDefaultTitle: "Text one", colPicked: $model.topCol, fontDisplayName: $model.topFontDisplayName, fontPostscriptName: $model.topFontName, fontSize: $model.topFontSize, textAlignment: $model.topTextAlignment, rounding: rounding)
+                                    .frame(width: model.coverSize(geometry) / 2 - 10)
+                                    .padding(.trailing, 5)
 
-                            TextToolsView(colPickTitle: $model.topTextBindingManager.text, colPickDefaultTitle: "Text one", colPicked: $model.topCol, fontDisplayName: $model.topFontDisplayName, fontPostscriptName: $model.topFontName, fontSize: $model.topFontSize, textAlignment: $model.topTextAlignment, rounding: rounding)
-                                .frame(width: model.coverSize(geometry) / 2 - 10)
-                                .padding(.trailing, 5)
+                                //Divider()
 
-                            Divider()
+                                TextToolsView(colPickTitle: $model.botTextBindingManager.text, colPickDefaultTitle: "Text two", colPicked: $model.botCol, fontDisplayName: $model.botFontDisplayName, fontPostscriptName: $model.botFontName, fontSize: $model.botFontSize, textAlignment: $model.botTextAlignment, rounding: rounding)
+                                    .frame(width: model.coverSize(geometry) / 2 - 10)
+                                    .padding(.leading, 5)
 
-                            TextToolsView(colPickTitle: $model.botTextBindingManager.text, colPickDefaultTitle: "Text two", colPicked: $model.botCol, fontDisplayName: $model.botFontDisplayName, fontPostscriptName: $model.botFontName, fontSize: $model.botFontSize, textAlignment: $model.botTextAlignment, rounding: rounding)
-                                .frame(width: model.coverSize(geometry) / 2 - 10)
-                                .padding(.leading, 5)
+                            }
+                            .frame(maxHeight: model.coverSize(geometry) * 3 / 4)
+                            
+                            Spacer()
 
+                            // Export button
+                            Button(action: saveAction) {
+                                Label(model.isNew ? "Add to Library" : "Update Cover", systemImage: "arrow.2.circlepath.circle.fill")
+                                    .foregroundColor(model.buttonLabelColor)
+                                    .font(.headline)
+                                    .padding()
+                                    .frame(width: model.coverSize(geometry))
+                                    .background(model.dominantImageColor)
+                                    .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous).inset(by: 1))
+                                    .padding(1)
+                                    .background(model.buttonLabelColor)
+                                    .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous))
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            Spacer()
                         }
-
-                        .frame(width: model.coverSize(geometry))
-
-
-                        Spacer()
-
-                        // Export button
-                        Button(action: saveAction) {
-                            Label(model.isNew ? "Add to Library" : "Update Cover", systemImage: "arrow.2.circlepath.circle.fill")
-                                .foregroundColor(model.buttonLabelColor)
-                                .font(.headline)
-                                .padding()
-                                .frame(width: model.coverSize(geometry))
-                                .background(model.dominantImageColor)
-                                .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous).inset(by: 1))
-                                .padding(1)
-                                .background(model.buttonLabelColor)
-                                .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous))
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .padding(.bottom)
                         
                         
                     }
@@ -314,10 +335,3 @@ struct CoverEditView: View {
         }
     }
 }
-
-struct CoverEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("Hello World")
-    }
-}
-

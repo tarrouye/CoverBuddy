@@ -47,7 +47,7 @@ var allCollections : [Collection] = [
                   topPos: 150,
                   botPos: 1350,
                   topTextAlignment: .left,
-                  botTextAlignment: .right,
+                  botTextAlignment: .left,
                   topFontName: "Helvetica Bold",
                   botFontName: "Helvetica Bold",
                   topFontSize: 216,
@@ -69,6 +69,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "andre-benz"),
             
             CoverProperties(topText: "Lost In",
@@ -97,6 +101,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 100,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 100,
                   backgroundImgURL: "breno-machado"),
             
             CoverProperties(topText: "Dark and",
@@ -158,6 +166,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "jr-korpa"),
             
             CoverProperties(topText: "COUCH",
@@ -172,6 +184,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "martin-pechy"),
             
             CoverProperties(topText: "Wise &",
@@ -260,6 +276,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.green,
                   botFontColor: UIColor.black,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "sharon-mccutcheon"),
         ]
     ),
@@ -307,6 +327,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "bia-andrade"),
             
             CoverProperties(topText: "Recently",
@@ -377,6 +401,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 100,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 100,
                   backgroundImgURL: "daniele-levis-pelusi-2"),
             
             CoverProperties(topText: "Party",
@@ -391,6 +419,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 100,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 100,
                   backgroundImgURL: "ilya-lix"),
             
             
@@ -493,6 +525,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "pawel-czerwinski-3"),
             
             CoverProperties(topText: "sadboi",
@@ -591,6 +627,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "andrew-ridley"),
             
             
@@ -648,6 +688,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "efe-kurnaz"),
             
             CoverProperties(topText: "Tunnel",
@@ -690,6 +734,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 100,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 100,
                   backgroundImgURL: "ricardo-gomez-angel"),
             
             CoverProperties(topText: "Winding",
@@ -718,6 +766,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "ricardo-gomez-angel-3"),
             
             CoverProperties(topText: "Spotted",
@@ -774,9 +826,9 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
-                  topLeftSidePadding: 10,
+                  topLeftSidePadding: 100,
                   topRightSidePadding: 0,
-                  botLeftSidePadding: 10,
+                  botLeftSidePadding: 100,
                   botRightSidePadding: 0,
                   backgroundImgURL: "simone-hutsch"),
             
@@ -806,6 +858,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 100,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 100,
                   backgroundImgURL: "zara-walker"),
             
             
@@ -874,6 +930,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 100,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 100,
                   backgroundImgURL: "belinda-fewings"),
             
             CoverProperties(topText: "Unforgettable",
@@ -906,6 +966,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "elias-maurer"),
            
 
@@ -936,6 +1000,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "jamie-street"),
             
             CoverProperties(topText: "Beach",
@@ -964,6 +1032,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.black,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "nick-fewings"),
             
             CoverProperties(topText: "Lost",
@@ -978,6 +1050,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "nicola-fioravanti"),
             
             CoverProperties(topText: "",
@@ -992,6 +1068,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 0,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 0,
                   backgroundImgURL: "ryan-o-niel")
         ]
     ),
@@ -1367,6 +1447,10 @@ var allCollections : [Collection] = [
                   botFontSize: 216,
                   topFontColor: UIColor.black,
                   botFontColor: UIColor.black,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 100,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 100,
                   backgroundImgURL: "blake-cheek"),
             
             // [truck outdoors]
@@ -1412,6 +1496,10 @@ var allCollections : [Collection] = [
                   botFontSize: 248,
                   topFontColor: UIColor.white,
                   botFontColor: UIColor.white,
+                  topLeftSidePadding: 0,
+                  topRightSidePadding: 100,
+                  botLeftSidePadding: 0,
+                  botRightSidePadding: 100,
                   backgroundImgURL: "clem-onojeghuo"),
             
             // [horses in field]

@@ -10,12 +10,27 @@ import SwiftUI
 struct CollectionsView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    
     @Binding var rootIsActive : Bool
     
+    @State var columnGrid = [GridItem(.flexible())]
+    
+    func numColumns(_ geo : GeometryProxy) -> Int {
+        return columnLayout(geo, horizontalSizeClass) == .wide ? 2 : 1
+    }
+    
+    func columns(_ geo : GeometryProxy) -> [GridItem] {
+        let one = [GridItem(.flexible())]
+        let two = [GridItem(.flexible()), GridItem(.flexible())]
+        return columnLayout(geo, horizontalSizeClass) == .wide ? two : one
+    }
+    
     var body: some View {
+        GeometryReader { geometry in
         ScrollView (.vertical) {
             // LazyVStack with all CollectionCard s
-            LazyVStack(alignment: .center, spacing: 0) {
+            LazyVGrid(columns: self.columns(geometry), alignment: .center, spacing: 0) {
                 ForEach(allCollections.indices) { i in
                     NavigationLink(destination: PresetSelectionView(rootIsActive: $rootIsActive, collection: allCollections[i])) {
                         CollectionCardView(collection: allCollections[i], rotationDegrees: Double(10 - (20 * (i % 2))))
@@ -50,13 +65,6 @@ struct CollectionsView: View {
         }
         .padding(.bottom) // since we will ignore bottom safe area
         .edgesIgnoringSafeArea(.bottom) // hide background on home indicator
-    }
-}
-
-struct CollectionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-           Text("Hello World")
         }
     }
 }

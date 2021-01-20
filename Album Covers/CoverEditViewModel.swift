@@ -258,7 +258,7 @@ class CoverEditViewModel : ObservableObject {
     
     
     func coverSize(_ geo : GeometryProxy) -> CGFloat {
-        return min(geo.size.width, geo.size.height) * self.coverWidthPercentage
+        return min(geo.size.height, min(geo.size.width, (geo.size.width > geo.size.height ? geo.size.width / 2 : geo.size.height / 2))) - 40
     }
     
     func scaled(_ num : CGFloat, _ geo : GeometryProxy) -> CGFloat {

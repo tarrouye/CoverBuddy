@@ -11,10 +11,11 @@ struct LibraryView: View {
     // Get CoreData managedObjectContext
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    
     @StateObject var libraryStore : LibraryStorage
     
     // Establish UI settings
-    var columnGrid = [GridItem(.flexible()), GridItem(.flexible())]
     var spacing : CGFloat = 25
     var rounding: CGFloat = 15
     
@@ -25,6 +26,20 @@ struct LibraryView: View {
     @State var selectedNavigationItem : UUID?
     @State var collectionsIsActive : Bool = false
     @State var showingExportInstructions : Bool = false
+    
+    func numColumns(_ geo : GeometryProxy) -> Int {
+        return columnLayout(geo, horizontalSizeClass) == .wide ? 3 : 2
+    }
+    
+    func columns(_ geo : GeometryProxy) -> [GridItem] {
+        let three = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+        let two = [GridItem(.flexible()), GridItem(.flexible())]
+        return columnLayout(geo, horizontalSizeClass) == .wide ? three : two
+    }
+    
+    func thumbnailSize(_ geo : GeometryProxy) -> CGFloat {
+        return (geo.size.width - (spacing * CGFloat(self.numColumns(geo)))) / CGFloat(self.numColumns(geo))
+    }
     
     func toggleEditMode() {
         if (self.isSelecting) {
@@ -57,6 +72,7 @@ struct LibraryView: View {
     
     var body: some View {
         NavigationView {
+            GeometryReader { geometry in
             ZStack {
                 // Empty Navlink to trigger programatically for instructions view
                 NavigationLink(destination: SetPlaylistInstructionsView(rootIsActive: self.$showingExportInstructions), isActive: self.$showingExportInstructions) {}
@@ -65,11 +81,11 @@ struct LibraryView: View {
                 
             
                 ScrollView (.vertical) {
-                    LazyVGrid(columns: columnGrid, alignment: .center, spacing: spacing / 1.5) {
+                    LazyVGrid(columns: self.columns(geometry), alignment: .center, spacing: spacing / 1.5) {
                         // Create new button
                         NavigationLink(destination: CollectionsView(rootIsActive: self.$collectionsIsActive), isActive: self.$collectionsIsActive) {
                             Color(UIColor.tertiarySystemGroupedBackground)
-                                .frame(width: (UIScreen.main.bounds.width - spacing * 2) / 2, height: (UIScreen.main.bounds.width - spacing * 2) / 2)
+                                .frame(width: thumbnailSize(geometry), height: thumbnailSize(geometry))
                                 .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
                                 .overlay(
                                     Image(systemName: "plus")
@@ -119,8 +135,8 @@ struct LibraryView: View {
                                             }
                                         }
                                     }), navigationItem: $selectedNavigationItem)
-                                        .frame(width: (UIScreen.main.bounds.width - spacing * 2) / 2, height: (UIScreen.main.bounds.width - spacing * 2) / 2)
-                                        .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
+                                    .frame(width: thumbnailSize(geometry), height: thumbnailSize(geometry))
+                                    .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
                                 }
                             }
                         }
@@ -154,6 +170,7 @@ struct LibraryView: View {
                 .padding(.vertical, (libraryStore.library.count < 6) ? 1 : 0) // fix for scrollview glitchy when not filling whole screen
                 .padding(.bottom) // since we will ignore bottom safe area
                 .edgesIgnoringSafeArea(.bottom) // hide background on home indicator
+            }
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
