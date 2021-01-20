@@ -22,12 +22,20 @@ struct CoverPreview: View {
         return num * (coverSize(geo) / 1500)
     }
     
+    func topFont(_ geo : GeometryProxy) -> UIFont {
+        return UIFont(name: withProperties!.topFontName, size: scaleAgainstWidth(withProperties!.topFontSize, geo)) ?? UIFont.systemFont(ofSize: scaleAgainstWidth(withProperties!.topFontSize, geo))
+    }
+    
+    func botFont(_ geo : GeometryProxy) -> UIFont {
+        return UIFont(name: withProperties!.botFontName, size: scaleAgainstWidth(withProperties!.botFontSize, geo)) ?? UIFont.systemFont(ofSize: scaleAgainstWidth(withProperties!.botFontSize, geo))
+    }
+    
     func topFontHeight(_ geo : GeometryProxy) -> CGFloat {
-        return UIFont(name: withProperties!.topFontName, size: scaleAgainstWidth(withProperties!.topFontSize, geo))!.lineHeight
+        return topFont(geo).lineHeight
     }
     
     func botFontHeight(_ geo : GeometryProxy) -> CGFloat {
-        return UIFont(name: withProperties!.botFontName, size: scaleAgainstWidth(withProperties!.botFontSize, geo))!.lineHeight
+        return botFont(geo).lineHeight
     }
     
     func textAlignToFrameAlign(_ align : NSTextAlignment) -> Alignment {
@@ -103,7 +111,7 @@ struct CoverPreview: View {
                                         .frame(height: scaleAgainstWidth(withProperties!.topPos, geometry))
                                     
                                     Text(withProperties!.topText)
-                                        .font(Font(UIFont(name: withProperties!.topFontName, size: scaleAgainstWidth(withProperties!.topFontSize, geometry))!))
+                                        .font(Font(topFont(geometry)))
                                         .fixedSize()
                                         .foregroundColor(Color(withProperties!.topFontColor))
                                         .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.topRightSidePadding + withProperties!.topLeftSidePadding, geometry), height: topFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.topTextAlignment))
@@ -133,7 +141,7 @@ struct CoverPreview: View {
                                     Text(withProperties!.botText)
                                         .multilineTextAlignment((withProperties!.botTextAlignment == .left) ? .leading : ((withProperties!.botTextAlignment == .right) ? .trailing : .center))
                                         .fixedSize()
-                                        .font(Font(UIFont(name: withProperties!.botFontName, size: scaleAgainstWidth(withProperties!.botFontSize, geometry))!))
+                                        .font(Font(botFont(geometry)))
                                         .foregroundColor(Color(withProperties!.botFontColor))
                                         .frame(width: coverSize(geometry) - scaleAgainstWidth(withProperties!.botRightSidePadding + withProperties!.botLeftSidePadding, geometry), height: botFontHeight(geometry), alignment: textAlignToFrameAlign(withProperties!.botTextAlignment))
                                     

@@ -177,19 +177,16 @@ class CoverEditViewModel : ObservableObject {
     private var isExporting : Bool = false
     
     func updateTopLineLimit() {
-        if let cont = UIFont(name: topFontName ?? "Helvetica Bold", size: CGFloat(topFontSize)) {
-            let max_width = 1500 - withProperties!.topLeftSidePadding - withProperties!.topRightSidePadding
-            
-            topTextBindingManager.update(font: cont, width: max_width)
-        }
+        let cont = UIFont(name: topFontName ?? "Helvetica Bold", size: CGFloat(topFontSize)) ?? UIFont.systemFont(ofSize: CGFloat(topFontSize))
+        let max_width = 1500 - withProperties!.topLeftSidePadding - withProperties!.topRightSidePadding
+        topTextBindingManager.update(font: cont, width: max_width)
+        
     }
     
     func updateBotLineLimit() {
-        if let cont = UIFont(name: botFontName ?? "Helvetica", size: CGFloat(botFontSize)) {
-            let max_width = 1500 - withProperties!.botLeftSidePadding - withProperties!.botRightSidePadding
-            
-            botTextBindingManager.update(font: cont, width: max_width)
-        }
+        let cont = UIFont(name: botFontName ?? "Helvetica", size: CGFloat(botFontSize)) ?? UIFont.systemFont(ofSize: CGFloat(topFontSize))
+        let max_width = 1500 - withProperties!.botLeftSidePadding - withProperties!.botRightSidePadding
+        botTextBindingManager.update(font: cont, width: max_width)
     }
     
     var topAlert : String? {
@@ -291,7 +288,8 @@ class CoverEditViewModel : ObservableObject {
     }
     
     func fontHeight(_ name : String?, _ size : Int, _ geo : GeometryProxy) -> CGFloat {
-        return UIFont(name: name ?? "Helvetica", size: scaled(CGFloat(size), geo))!.lineHeight
+        let fs = scaled(CGFloat(size), geo)
+        return (UIFont(name: name ?? "Helvetica", size: fs) ?? UIFont.systemFont(ofSize: fs)).lineHeight
     }
     
     func topFontHeight(_ geo : GeometryProxy) -> CGFloat {
@@ -311,11 +309,13 @@ class CoverEditViewModel : ObservableObject {
     }
     
     func topFont(_ geo : GeometryProxy) -> Font {
-        return Font(UIFont(name: topFontName ?? "Helvetica Bold", size: scaled(CGFloat(topFontSize), geo))!)
+        let fs = scaled(CGFloat(topFontSize), geo)
+        return Font(UIFont(name: topFontName ?? "Helvetica Bold", size: fs) ?? UIFont.systemFont(ofSize: fs))
     }
     
     func botFont(_ geo : GeometryProxy) -> Font {
-        return Font(UIFont(name: botFontName ?? "Helvetica", size: scaled(CGFloat(botFontSize), geo))!)
+        let fs = scaled(CGFloat(botFontSize), geo)
+        return Font(UIFont(name: botFontName ?? "Helvetica", size: fs) ?? UIFont.systemFont(ofSize: fs))
     }
     
     func topTextFieldWidth(_ geo : GeometryProxy) -> CGFloat {
@@ -376,8 +376,8 @@ class CoverEditViewModel : ObservableObject {
         
         self.topFontName = withProperties!.topFontName
         self.botFontName = withProperties!.botFontName
-        self.topFontDisplayName = UIFont(name: withProperties!.topFontName, size: 17)?.familyName
-        self.botFontDisplayName = UIFont(name: withProperties!.botFontName, size: 17)?.familyName
+        self.topFontDisplayName = UIFont(name: withProperties!.topFontName, size: 17)?.familyName ?? "Font not installed on this device."
+        self.botFontDisplayName = UIFont(name: withProperties!.botFontName, size: 17)?.familyName ?? "Font not installed on this device."
         
         self.topTextAlignment = withProperties!.topTextAlignment
         self.botTextAlignment = withProperties!.botTextAlignment

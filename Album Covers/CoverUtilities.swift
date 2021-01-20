@@ -167,7 +167,7 @@ func cgDrawCoverImage(_ image : UIImage, _ cover : CoverProperties) -> UIImage? 
         let topTextStyle = NSMutableParagraphStyle()
         topTextStyle.alignment = cover.topTextAlignment
         
-        let topFont = UIFont(name: cover.topFontName, size: cover.topFontSize)!
+        let topFont = UIFont(name: cover.topFontName, size: cover.topFontSize) ?? UIFont.systemFont(ofSize: cover.topFontSize)
         let topTextAttributes = [
             NSAttributedString.Key.font: topFont,
             NSAttributedString.Key.paragraphStyle: topTextStyle,
@@ -187,7 +187,7 @@ func cgDrawCoverImage(_ image : UIImage, _ cover : CoverProperties) -> UIImage? 
         let botTextStyle = NSMutableParagraphStyle()
         botTextStyle.alignment = cover.botTextAlignment
         
-        let botFont = UIFont(name: cover.botFontName, size: cover.botFontSize)!
+        let botFont = UIFont(name: cover.botFontName, size: cover.botFontSize) ?? UIFont.systemFont(ofSize: cover.botFontSize)
         let botTextAttributes = [
             NSAttributedString.Key.font: botFont,
             NSAttributedString.Key.paragraphStyle: botTextStyle,
