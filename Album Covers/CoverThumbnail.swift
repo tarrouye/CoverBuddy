@@ -22,6 +22,8 @@ struct CoverThumbnail : View {
     @State private var detailImageColor : Color = .green
     
     func loadImageColors() {
+        if cover.wrappedValue.isFault || cover.wrappedValue.backgroundImgURL == nil { return }
+        
         // check cache first
         if let cacheColors = ImageColorCache.shared.get(forKey: self.cover.wrappedValue.backgroundImgURL!) {
             self.backgroundImageColor = Color(cacheColors.background)
@@ -44,71 +46,75 @@ struct CoverThumbnail : View {
     }
     
     var body : some View {
-        Button(action: {
-            if (isSelecting) {
-                withAnimation {
-                    isSelected.toggle()
+        if (cover.wrappedValue.isFault || cover.wrappedValue.backgroundImgURL == nil) {
+            EmptyView()
+        } else {
+            Button(action: {
+                if (isSelecting) {
+                    withAnimation {
+                        isSelected.toggle()
+                    }
+                } else {
+                    navigationItem = cover.wrappedValue.id
                 }
-            } else {
-                navigationItem = cover.wrappedValue.id
-            }
-        }) {
-            CoverPreview(cover: cover)
-                .overlay(
-                    HStack {
-                        if (!isSelected) {
-                            Spacer()
-                        }
-                        
-                        VStack {
+            }) {
+                CoverPreview(cover: cover)
+                    .overlay(
+                        HStack {
                             if (!isSelected) {
                                 Spacer()
                             }
                             
-                            ZStack {
-                                if (isSelecting) {
-                                    
-                                    backgroundImageColor.opacity(isSelected ? 0.7 : 0.0)
-                                        .clipShape(RoundedRectangle(cornerRadius: isSelected ? rounding + 5: 100, style: .continuous))
+                            VStack {
+                                if (!isSelected) {
+                                    Spacer()
+                                }
+                                
+                                ZStack {
+                                    if (isSelecting) {
                                         
-                                        .overlay(
+                                        backgroundImageColor.opacity(isSelected ? 0.7 : 0.0)
+                                            .clipShape(RoundedRectangle(cornerRadius: isSelected ? rounding + 5: 100, style: .continuous))
                                             
-                                                RoundedRectangle(cornerRadius: isSelected ? rounding - 2: 100, style: .continuous)
-                                                    .inset(by: 2.5)
-                                                    .stroke(detailImageColor, lineWidth: isSelected ? 5 : 0)
+                                            .overlay(
                                                 
-                                            
-                                        )
-                                        .frame(maxWidth: isSelected ? .infinity : 30, maxHeight: isSelected ? .infinity : 30)
-                                        .zIndex(-1)
-                                    
-                                    Circle()
-                                        .foregroundColor(secondaryImageColor.opacity(isSelected ? 0.7 : 0.5))
-                                        .overlay(
-                                            Circle()
-                                                .stroke(isSelected ? Color.clear : primaryImageColor, lineWidth: isSelected ? 0 : 4)
-                                                .overlay(
-                                                    Image(systemName: "checkmark")
-                                                        .foregroundColor(primaryImageColor)
-                                                        .font(.system(size: 30, weight: .semibold))
-                                                        .opacity(isSelected ? 1 : 0)
-                                                )
+                                                    RoundedRectangle(cornerRadius: isSelected ? rounding - 2: 100, style: .continuous)
+                                                        .inset(by: 2.5)
+                                                        .stroke(detailImageColor, lineWidth: isSelected ? 5 : 0)
+                                                    
                                                 
-                                        )
-                                    .frame(width: isSelected ? 60: 30, height: isSelected ? 60 : 30)
-                                    .shadow(color: Color(UIColor.systemGray2), radius: 7)
-                                    .padding()
-                                    .zIndex(0)
+                                            )
+                                            .frame(maxWidth: isSelected ? .infinity : 30, maxHeight: isSelected ? .infinity : 30)
+                                            .zIndex(-1)
+                                        
+                                        Circle()
+                                            .foregroundColor(secondaryImageColor.opacity(isSelected ? 0.7 : 0.5))
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(isSelected ? Color.clear : primaryImageColor, lineWidth: isSelected ? 0 : 4)
+                                                    .overlay(
+                                                        Image(systemName: "checkmark")
+                                                            .foregroundColor(primaryImageColor)
+                                                            .font(.system(size: 30, weight: .semibold))
+                                                            .opacity(isSelected ? 1 : 0)
+                                                    )
+                                                    
+                                            )
+                                        .frame(width: isSelected ? 60: 30, height: isSelected ? 60 : 30)
+                                        .shadow(color: Color(UIColor.systemGray2), radius: 7)
+                                        .padding()
+                                        .zIndex(0)
+                                    }
                                 }
                             }
                         }
-                    }
-                    
-                )
-        }
-        .buttonStyle(PlainButtonStyle())
-        .onAppear {
-            loadImageColors()
+                        
+                    )
+            }
+            .buttonStyle(PlainButtonStyle())
+            .onAppear {
+                loadImageColors()
+            }
         }
     }
 }

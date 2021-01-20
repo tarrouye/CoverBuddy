@@ -39,15 +39,13 @@ struct InstructCardView : View {
                 
                 // For spotify only, little info popup explaining why they have to go through Desktop
                 if (cardInfo.title == "Spotify (Mobile)") {
-                    Button(action: {
+                    PillButton(label: "Help", /*systemImage: "info.circle", */bgCol: Color.blue) {
                         self.showingInfo = true
-                    }) {
-                        Image(systemName: "info.circle")
                     }
                     .alert(isPresented: $showingInfo) {
-                        Alert(title: Text("Why don't I see these options?"),
-                            message: Text("Spotify's iOS app currently only supports editing playlist covers for a select number of users as part of an ongoing server-side rollout. If you believe you are included in this set of users, click on to see Spotify's instructions on how to use this feature from your phone."),
-                            primaryButton: .default(Text("See Mobile Instructions")) {
+                        Alert(title: Text("I don't see 'Change Image'!"),
+                            message: Text("\nSpotify's iOS app currently only supports editing playlist covers for select users.\n\nIf you are not included in this set of users, you won't see the 'Change Image' option.\n\nIf this is something you care about, please contact or tweet at Spotify asking them to make this feature available to all users!"),
+                            primaryButton: .default(Text("See Spotify Source")) {
                                 openURL(URL(string: "https://newsroom.spotify.com/2020-12-08/how-to-upload-a-custom-playlist-image-using-your-phone/")!)
                             },
                             secondaryButton: .default(Text("OK")))

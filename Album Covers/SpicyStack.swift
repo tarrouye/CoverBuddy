@@ -26,7 +26,6 @@ struct SpicyStack<Content: View> : View {
                     self.content
                 }.frame(width: proxy.size.width, height: proxy.size.height)
             }
-            
         }
     }
 }

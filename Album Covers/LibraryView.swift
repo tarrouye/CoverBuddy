@@ -52,19 +52,27 @@ struct LibraryView: View {
         }
     }
     
-    func deleteSelections() {
+    func deleteItems(_ items : [UUID]) {
         withAnimation {
-            libraryStore.deleteItems(selections)
+            libraryStore.deleteItems(items)
         }
+    }
+    
+    func deleteSelections() {
+        deleteItems(selections)
         
         toggleEditMode()
     }
     
+    func exportItems(_ items : [UUID]) {
+        if !libraryStore.exportItems(items) { ImageSaver.shared.latestSaveSuceeded = false }
+    
+        self.showingExportInstructions = true
+    }
+    
     func exportSelections() {
         if (!showingExportInstructions && selections.count > 0) {
-            if !libraryStore.exportItems(selections) { ImageSaver.shared.latestSaveSuceeded = false }
-        
-            self.showingExportInstructions = true
+            exportItems(selections)
             
             toggleEditMode()
         }
@@ -119,24 +127,38 @@ struct LibraryView: View {
                                         tag: cover.id!,
                                         selection: $selectedNavigationItem) {}.isDetailLink(false)
                                     
-                                
-                                    CoverThumbnail(cover: ObservedObject<Cover>(wrappedValue: cover), rounding: rounding, isSelecting: $isSelecting, isSelected: Binding(get: {
-                                        if(cover.id != nil) {
-                                            return self.selections.contains(cover.id!)
-                                        }
-                                        
-                                        return false
-                                    }, set : {
-                                        if (cover.id != nil) {
-                                            if $0 {
-                                                self.selections.append(cover.id!)
-                                            } else {
-                                                self.selections.removeAll(where: { $0 == cover.id! } )
+                                    if (!cover.isFault) {
+                                        CoverThumbnail(cover: ObservedObject<Cover>(wrappedValue: cover), rounding: rounding, isSelecting: $isSelecting, isSelected: Binding(get: {
+                                            if(cover.id != nil) {
+                                                return self.selections.contains(cover.id!)
+                                            }
+                                            
+                                            return false
+                                        }, set : {
+                                            if (cover.id != nil) {
+                                                if $0 {
+                                                    self.selections.append(cover.id!)
+                                                } else {
+                                                    self.selections.removeAll(where: { $0 == cover.id! } )
+                                                }
+                                            }
+                                        }), navigationItem: $selectedNavigationItem)
+                                        .frame(width: thumbnailSize(geometry), height: thumbnailSize(geometry))
+                                        .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
+                                        .contextMenu {
+                                            Button(action: {
+                                                self.exportItems([cover.id!])
+                                            }) {
+                                                Label("Export", systemImage: "square.and.arrow.up.fill")
+                                            }
+                                            
+                                            Button(action: {
+                                                self.deleteItems([cover.id!])
+                                            }) {
+                                                Label("Delete", systemImage: "trash.fill")
                                             }
                                         }
-                                    }), navigationItem: $selectedNavigationItem)
-                                    .frame(width: thumbnailSize(geometry), height: thumbnailSize(geometry))
-                                    .clipShape(RoundedRectangle(cornerRadius: rounding, style: .continuous))
+                                    }
                                 }
                             }
                         }
