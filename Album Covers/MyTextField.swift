@@ -20,6 +20,7 @@ struct MyTextField : View {
             }
             
             TextField(placeholder, text: $textBindingManager.text)
+                .disableAutocorrection(true)
                 .multilineTextAlignment((alignment == .left) ? .leading : ((alignment == .right) ? .trailing : .center))
                 .background(textBindingManager.text.isEmpty ? Color.white.opacity(0.5) : Color.clear)
             
