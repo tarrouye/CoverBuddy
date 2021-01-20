@@ -112,7 +112,7 @@ struct SetPlaylistInstructionsView: View {
         ScrollView(imageSaver.latestSaveSuceeded ? .vertical : []) {
             VStack() {
                 if imageSaver.latestSaveSuceeded {
-                    Text("Your selected covers have been exported to your Photo Library.\n\nRead on to learn how to set them as your Playlist covers in Spotify or Apple Music!")
+                    Text("Your selected covers have been exported to your Photo Library.\n\nRead on to learn how to set them as your Playlist covers in Spotify, Apple Music, or another streaming service!")
                         .multilineTextAlignment(.leading)
                         .padding()
                     
