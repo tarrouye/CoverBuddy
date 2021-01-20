@@ -69,7 +69,7 @@ struct TextToolsView : View {
                     
                     Spacer()
                     
-                    Text("\(fontSize)")
+                    Text("Font size: \(fontSize)")
                         .font(.body)
                         .padding(.vertical)
                     
