@@ -15,6 +15,7 @@ struct TextToolsView : View {
     @Binding var fontPostscriptName : String?
     @Binding var fontSize : Int
     @Binding var textAlignment : NSTextAlignment
+    @Binding var textYPos : CGFloat
     
     @State var isShowingFontPicker : Bool = false
     
@@ -25,8 +26,6 @@ struct TextToolsView : View {
     var body : some View {
         GeometryReader { geometry in
             VStack {
-                Spacer()
-                
                 // Color Picker
                 ColorPicker(colPickTitle.isEmpty ? colPickDefaultTitle : colPickTitle, selection: $colPicked, supportsOpacity: true)
                     .padding(.horizontal)
@@ -81,8 +80,7 @@ struct TextToolsView : View {
                 }
                 .frame(maxWidth: .infinity)
                 
-                
-                // Alignment
+                // Horizontal Alignment
                 HStack {
                     Button(action: {
                         textAlignment = .left
@@ -126,7 +124,51 @@ struct TextToolsView : View {
                 }
                 .frame(maxWidth: .infinity)
                 
-                Spacer()
+                
+                // Vertical Alignment
+                HStack {
+                    Button(action: {
+                        textYPos = CGFloat(fontSize) / 2
+                    }) {
+                        Image(systemName: "chevron.up.circle.fill")
+                            .font(Font.body.weight((textAlignment == .left) ? .bold : .regular))
+                            .padding(.vertical)
+                            .frame(width: (geometry.size.width - 20) / 3, height: chunkHeight)
+                            .background(BackgroundBlurView().background(colPicked))
+                            .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous))
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        textYPos = 750
+                    }) {
+                        Image(systemName: "bolt.circle.fill")
+                            .font(Font.body.weight((textAlignment == .center) ? .bold : .regular))
+                            .padding(.vertical)
+                            .frame(width: (geometry.size.width - 20) / 3, height: chunkHeight)
+                            .background(BackgroundBlurView().background(colPicked))
+                            .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous))
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        textYPos = 1500 - CGFloat(fontSize) / 2
+                    }) {
+                        Image(systemName: "chevron.down.circle.fill")
+                            .font(Font.body.weight((textAlignment == .right) ? .bold : .regular))
+                            .padding(.vertical)
+                            .frame(width: (geometry.size.width - 20) / 3, height: chunkHeight)
+                            .background(BackgroundBlurView().background(colPicked))
+                            .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous))
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+                .frame(maxWidth: .infinity)
+    
             }
             .frame(maxWidth: .infinity)
         }

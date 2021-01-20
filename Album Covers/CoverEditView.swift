@@ -21,6 +21,8 @@ struct CoverEditView: View {
 
     @State private var topGestureInitialAlignment : NSTextAlignment?
     @State private var botGestureInitialAlignment : NSTextAlignment?
+    
+    @State private var lastTouchedText : Int = 0
 
     private var alignSnapThreshold : CGFloat = 50
     
@@ -89,7 +91,12 @@ struct CoverEditView: View {
                                         .font(model.topFont(geometry))
                                         .foregroundColor(model.topCol)
                                         .frame(width: model.topTextFieldWidth(geometry), height: model.topFontHeight(geometry), alignment: model.topFrameAlignment)
+                                        .onTapGesture {
+                                            self.lastTouchedText = 0
+                                        }
                                         .simultaneousGesture(DragGesture(minimumDistance: 0.2).onChanged { gesture in
+                                            self.lastTouchedText = 0
+                                            
                                             // vertical dragging
                                             model.topPos = min(max(CGFloat(model.topFontSize / 2), model.topPos + gesture.translation.height), 1500 - CGFloat(model.topFontSize / 2))
                                             
@@ -170,7 +177,12 @@ struct CoverEditView: View {
                                         .font(model.botFont(geometry))
                                         .foregroundColor(model.botCol)
                                         .frame(width: model.botTextFieldWidth(geometry), height: model.botFontHeight(geometry), alignment: model.botFrameAlignment)
+                                        .onTapGesture {
+                                            self.lastTouchedText = 1
+                                        }
                                         .simultaneousGesture(DragGesture(minimumDistance: 0.2).onChanged { gesture in
+                                            self.lastTouchedText = 1
+                                            
                                             // vertical dragging
                                             model.botPos = min(max(CGFloat(model.botFontSize / 2), model.botPos + gesture.translation.height), 1500 - CGFloat(model.botFontSize / 2))
                                             
@@ -251,15 +263,9 @@ struct CoverEditView: View {
                             
                             HStack {
 
-                                TextToolsView(colPickTitle: $model.topTextBindingManager.text, colPickDefaultTitle: "Text one", colPicked: $model.topCol, fontDisplayName: $model.topFontDisplayName, fontPostscriptName: $model.topFontName, fontSize: $model.topFontSize, textAlignment: $model.topTextAlignment, rounding: rounding)
-                                    .frame(width: model.coverSize(geometry) / 2 - 10)
+                                TextToolsView(colPickTitle: self.lastTouchedText == 0 ? $model.topTextBindingManager.text : $model.botTextBindingManager.text, colPickDefaultTitle: "Text color", colPicked: self.lastTouchedText == 0 ? $model.topCol : $model.botCol, fontDisplayName: self.lastTouchedText == 0 ? $model.topFontDisplayName : $model.botFontDisplayName, fontPostscriptName: self.lastTouchedText == 0 ? $model.topFontName : $model.botFontName, fontSize: self.lastTouchedText == 0 ? $model.topFontSize : $model.botFontSize, textAlignment: self.lastTouchedText == 0 ? $model.topTextAlignment : $model.botTextAlignment, textYPos: self.lastTouchedText == 0 ? $model.topPos : $model.botPos, rounding: rounding)
+                                    .frame(width: model.coverSize(geometry))
                                     .padding(.trailing, 5)
-
-                                //Divider()
-
-                                TextToolsView(colPickTitle: $model.botTextBindingManager.text, colPickDefaultTitle: "Text two", colPicked: $model.botCol, fontDisplayName: $model.botFontDisplayName, fontPostscriptName: $model.botFontName, fontSize: $model.botFontSize, textAlignment: $model.botTextAlignment, rounding: rounding)
-                                    .frame(width: model.coverSize(geometry) / 2 - 10)
-                                    .padding(.leading, 5)
 
                             }
                             .frame(maxHeight: model.coverSize(geometry) * 3 / 4)
