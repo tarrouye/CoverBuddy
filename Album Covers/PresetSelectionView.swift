@@ -133,21 +133,10 @@ struct PresetSelectionView: View {
                 Spacer()
                 
                 // Select button
-                Button(action: {
+                RimmedRectButton(label: "Select Preset", systemImage: "plus.circle", backgroundCol: buttonBackgroundColor[selectedCard] ?? .blue, foregroundCol: buttonForegroundColor[selectedCard] ?? .white, rimCol: buttonForegroundColor[selectedCard] ?? .white) {
                     selectedNavigationItem = selectedCard
-                }) {
-                    Label("Create Cover", systemImage: "plus.circle")
-                        .foregroundColor(buttonForegroundColor[selectedCard] ?? .white)
-                        .font(.headline)
-                        .padding()
-                        .frame(width: coverSize(geometry))
-                        .background(buttonBackgroundColor[selectedCard] ?? .blue)
-                        .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous).inset(by: 1))
-                        .padding(1)
-                        .background(buttonForegroundColor[selectedCard] ?? .white)
-                        .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous))
                 }
-                .buttonStyle(PlainButtonStyle())
+                .frame(width: coverSize(geometry))
                 .padding(.bottom)
                 
                 Spacer()

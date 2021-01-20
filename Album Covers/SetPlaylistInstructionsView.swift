@@ -47,15 +47,53 @@ struct SetPlaylistInstructionsView: View {
             icon: "Apple_Music_Icon",
             bgCol: Color.pink,
             steps: [
-                "Open the Music app",
+                "Open the Music app.",
                 "Select one of your playlists.",
-                "Tap on 'Edit' in the top right corner.",
+                "Tap on the three-dot menu in the top right corner, then select 'Edit'.",
                 "Tap on the cover art.",
-                "This will open a menu for editing the playlist details.",
                 "Choose the exported cover you want from your Photo Library, then click Choose.",
                 "Once you see your new cover art, click 'Done' in the top right. Enjoy!"
     
             ]
+        ),
+        
+        InstructCard(
+            title: "Deezer",
+            icon: "Deezer_Logo_Circle",
+            bgCol: Color.orange,
+            steps: [
+                "Open the Deezer app.",
+                "Select one of your playlists.",
+                "Tap the pencil (edit) button.",
+                "Tap on the cover art.",
+                "Choose the exported cover you want from your Photo Library, then click Choose.",
+                "Once you see your new cover art, click 'Done' in the top right. Enjoy!"
+    
+            ]
+        ),
+        
+        InstructCard(
+            title: "Tidal",
+            icon: "Tidal_Logo",
+            bgCol: Color.gray
+        ),
+        
+        InstructCard(
+            title: "Amazon Music",
+            icon: "Amazon_Music_Logo",
+            bgCol: Color.blue
+        ),
+        
+        InstructCard(
+            title: "YouTube Music",
+            icon: "Youtube_Music_Logo",
+            bgCol: Color.red
+        ),
+        
+        InstructCard(
+            title: "Pandora",
+            icon: "Pandora_Logo",
+            bgCol: Color.purple
         )
     ]
     
@@ -79,7 +117,7 @@ struct SetPlaylistInstructionsView: View {
                         .padding()
                     
                     ForEach(self.cards.indices, id: \.self) { card in
-                        InstructCardView(cardInfo: self.$cards[card])
+                        InstructCardView(cardInfo: self.$cards[card], rootIsActive: self.$rootIsActive)
                     }
                 } else {
                     Text("Image Save Failure")
@@ -93,19 +131,9 @@ struct SetPlaylistInstructionsView: View {
                 }
                 
                 // Got it button
-                Button(action: dismissSelf) {
-                    Label(imageSaver.latestSaveSuceeded ? "All set up" : "Understood", systemImage: "checkmark.circle.fill")
-                        .foregroundColor(Color.white)
-                        .font(.headline)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous).inset(by: 1))
-                        .padding(1)
-                        .background(Color(UIColor.tertiarySystemGroupedBackground))
-                        .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                RimmedRectButton(label: imageSaver.latestSaveSuceeded ? "All set up" : "Understood", systemImage: "checkmark.circle.fill") {
+                    self.dismissSelf()
                 }
-                .buttonStyle(PlainButtonStyle())
                 .padding()
                 
             }

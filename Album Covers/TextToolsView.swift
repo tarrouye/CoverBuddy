@@ -144,7 +144,7 @@ struct TextToolsView : View {
                     Button(action: {
                         textYPos = 750
                     }) {
-                        Image(systemName: "bolt.circle.fill")
+                        Image(systemName: "square.split.1x2.fill")
                             .font(Font.body.weight((textAlignment == .center) ? .bold : .regular))
                             .padding(.vertical)
                             .frame(width: (geometry.size.width - 20) / 3, height: chunkHeight)

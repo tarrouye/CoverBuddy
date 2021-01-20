@@ -18,6 +18,7 @@
 		3142EED025B765440023F98D /* TextFieldAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3142EECF25B765440023F98D /* TextFieldAlertView.swift */; };
 		3142EED425B7655E0023F98D /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3142EED325B7655E0023F98D /* MyTextField.swift */; };
 		3142EF0125B7CE020023F98D /* SpicyStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3142EF0025B7CE020023F98D /* SpicyStack.swift */; };
+		3142EF0925B81DC70023F98D /* RimmedRectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3142EF0825B81DC60023F98D /* RimmedRectButton.swift */; };
 		3173644925B52D2800C71665 /* CoverEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3173644825B52D2800C71665 /* CoverEditViewModel.swift */; };
 		31876D4125B5788600118A62 /* BackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31876D4025B5788600118A62 /* BackgroundBlurView.swift */; };
 		31876D4525B57E6C00118A62 /* CoverThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31876D4425B57E6C00118A62 /* CoverThumbnail.swift */; };
@@ -55,6 +56,7 @@
 		3142EECF25B765440023F98D /* TextFieldAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlertView.swift; sourceTree = "<group>"; };
 		3142EED325B7655E0023F98D /* MyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
 		3142EF0025B7CE020023F98D /* SpicyStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpicyStack.swift; sourceTree = "<group>"; };
+		3142EF0825B81DC60023F98D /* RimmedRectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RimmedRectButton.swift; sourceTree = "<group>"; };
 		3173644825B52D2800C71665 /* CoverEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverEditViewModel.swift; sourceTree = "<group>"; };
 		31876D4025B5788600118A62 /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
 		31876D4425B57E6C00118A62 /* CoverThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverThumbnail.swift; sourceTree = "<group>"; };
@@ -129,10 +131,11 @@
 				31EAA18125AB4E6B009D2511 /* PresetSelectionView.swift */,
 				3142EEC025B662800023F98D /* SetPlaylistInstructionsView.swift */,
 				3142EECC25B764D90023F98D /* InstructCardView.swift */,
+				3142EF0825B81DC60023F98D /* RimmedRectButton.swift */,
 				31876D5025B59D3C00118A62 /* CarouselView.swift */,
 				31EAA17B25AAE6CE009D2511 /* CoverEditView.swift */,
-				3142EF0025B7CE020023F98D /* SpicyStack.swift */,
 				3173644825B52D2800C71665 /* CoverEditViewModel.swift */,
+				3142EF0025B7CE020023F98D /* SpicyStack.swift */,
 				3142EED325B7655E0023F98D /* MyTextField.swift */,
 				3142EECF25B765440023F98D /* TextFieldAlertView.swift */,
 				318AD59E25AE397600FEBD12 /* TextToolsView.swift */,
@@ -233,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3142EF0925B81DC70023F98D /* RimmedRectButton.swift in Sources */,
 				3173644925B52D2800C71665 /* CoverEditViewModel.swift in Sources */,
 				318AD59625AD12C200FEBD12 /* PillButton.swift in Sources */,
 				318AD57E25AC187000FEBD12 /* PresetCollectionsInfo.swift in Sources */,

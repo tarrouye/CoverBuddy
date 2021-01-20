@@ -11,7 +11,7 @@ struct InstructCard {
     var title : String
     var icon : String
     var bgCol : Color
-    var steps : [String]
+    var steps : [String]?
 }
 
 struct InstructCardView : View {
@@ -19,9 +19,13 @@ struct InstructCardView : View {
     
     @State var currentCardIndex : Int = 0
     @Binding var cardInfo : InstructCard
+    @Binding var rootIsActive : Bool
     
     @State var showingInfo : Bool = false
     
+    let unsupportedMessage = "This service does not support custom playlist covers.\nIf this is something you care about, please contact or tweet at them!"
+    
+    let unsupportedMessage2 = "If this is no longer true, please contact us."
     
     var body : some View {
         VStack(alignment: .leading) {
@@ -50,39 +54,63 @@ struct InstructCardView : View {
                             },
                             secondaryButton: .default(Text("OK")))
                     }
+                } else if (cardInfo.steps == nil) {
+                    Menu {
+                        Text(self.unsupportedMessage2)
+                    } label: {
+                        Image(systemName: "exclamationmark.circle.fill")
+                            .foregroundColor(.red)
+                            .font(.title2)
+                    }
                 }
                 
             }
             
-            CarouselView(cardCount: cardInfo.steps.count, currentIndex: $currentCardIndex, showPageDots: true, bgView: AnyView(
-                    BackgroundBlurView()
-                        .background(cardInfo.bgCol)
-                        .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-                )
-            ) {
-                ForEach(cardInfo.steps.indices) { step in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text("Step \(step + 1)")
-                                .font(.headline)
-                                .padding(.bottom)
+            if (cardInfo.steps != nil) {
+                CarouselView(cardCount: cardInfo.steps!.count + 1, currentIndex: $currentCardIndex, showPageDots: true, bgView: AnyView(
+                        cardInfo.bgCol
+                            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                    )
+                ) {
+                    ForEach(cardInfo.steps!.indices) { step in
+                        HStack {
+                            VStack(alignment: .leading, spacing: 0) {
+                                Text("Step \(step + 1)")
+                                    .font(.headline)
+                                    .padding(.bottom)
 
+                                    
                                 
+                                Text(cardInfo.steps![step])
+                                    .lineLimit(4)
+                                    .multilineTextAlignment(.leading)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    
+                            }
                             
-                            Text(cardInfo.steps[step])
-                                .lineLimit(4)
-                                .multilineTextAlignment(.leading)
-                                .fixedSize(horizontal: false, vertical: true)
-                                
+                            
+                            Spacer()
                         }
-                        
-                        
-                        Spacer()
+                        .padding()
+                    }
+                    
+                    RimmedRectButton(label: "All set up", systemImage: "checkmark.circle.fill") {
+                        self.rootIsActive = false
                     }
                     .padding()
                 }
+                .frame(height: 150)
+            } else {
+                ZStack {
+                    cardInfo.bgCol
+                    
+                    Text(self.unsupportedMessage)
+                        .lineLimit(5)
+                        .multilineTextAlignment(.leading)
+                        .padding()
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
             }
-            .frame(height: 150)
 
         }
         .padding()

@@ -263,7 +263,7 @@ struct CoverEditView: View {
                             
                             HStack {
 
-                                TextToolsView(colPickTitle: self.lastTouchedText == 0 ? $model.topTextBindingManager.text : $model.botTextBindingManager.text, colPickDefaultTitle: "Text color", colPicked: self.lastTouchedText == 0 ? $model.topCol : $model.botCol, fontDisplayName: self.lastTouchedText == 0 ? $model.topFontDisplayName : $model.botFontDisplayName, fontPostscriptName: self.lastTouchedText == 0 ? $model.topFontName : $model.botFontName, fontSize: self.lastTouchedText == 0 ? $model.topFontSize : $model.botFontSize, textAlignment: self.lastTouchedText == 0 ? $model.topTextAlignment : $model.botTextAlignment, textYPos: self.lastTouchedText == 0 ? $model.topPos : $model.botPos, rounding: rounding)
+                                TextToolsView(colPickTitle: self.lastTouchedText == 0 ? $model.topTextBindingManager.text : $model.botTextBindingManager.text, colPickDefaultTitle: "Empty text", colPicked: self.lastTouchedText == 0 ? $model.topCol : $model.botCol, fontDisplayName: self.lastTouchedText == 0 ? $model.topFontDisplayName : $model.botFontDisplayName, fontPostscriptName: self.lastTouchedText == 0 ? $model.topFontName : $model.botFontName, fontSize: self.lastTouchedText == 0 ? $model.topFontSize : $model.botFontSize, textAlignment: self.lastTouchedText == 0 ? $model.topTextAlignment : $model.botTextAlignment, textYPos: self.lastTouchedText == 0 ? $model.topPos : $model.botPos, rounding: rounding)
                                     .frame(width: model.coverSize(geometry))
                                     .padding(.trailing, 5)
 
@@ -273,19 +273,10 @@ struct CoverEditView: View {
                             Spacer()
 
                             // Export button
-                            Button(action: saveAction) {
-                                Label(model.isNew ? "Add to Library" : "Update Cover", systemImage: "arrow.2.circlepath.circle.fill")
-                                    .foregroundColor(model.buttonLabelColor)
-                                    .font(.headline)
-                                    .padding()
-                                    .frame(width: model.coverSize(geometry))
-                                    .background(model.dominantImageColor)
-                                    .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous).inset(by: 1))
-                                    .padding(1)
-                                    .background(model.buttonLabelColor)
-                                    .clipShape(RoundedRectangle(cornerRadius: rounding * 0.75, style: .continuous))
+                            RimmedRectButton(label: model.isNew ? "Add to Library" : "Update Cover", systemImage: "arrow.2.circlepath.circle.fill", backgroundCol: model.dominantImageColor, foregroundCol: model.buttonLabelColor, rimCol: model.buttonLabelColor) {
+                                self.saveAction()
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .frame(width: model.coverSize(geometry))
                             
                             Spacer()
                         }
