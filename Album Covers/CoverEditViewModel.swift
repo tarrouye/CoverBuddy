@@ -16,21 +16,7 @@ class TextBindingManager: ObservableObject {
     @Published var alertMessage : String?
     @Published var text = "" {
         didSet {
-            if textWidth() > (widthLimit - 50) {
-                text = oldValue
-                
-                if (self.alertMessage == nil) {
-                    withAnimation {
-                        self.alertMessage = "Your text is too long.\nTry reducing the font size."
-                    }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        withAnimation {
-                            self.alertMessage = nil
-                        }
-                    }
-                }
-            }
+            self.restrictWidth()
         }
     }
     
@@ -47,17 +33,40 @@ class TextBindingManager: ObservableObject {
         return size.width
     }
     
+    func restrictWidth() {
+        var flag = false
+        while textWidth() > widthLimit - 50 {
+            self.text = String(self.text.dropLast())
+            flag = true
+        }
+        
+        if (flag && self.alertMessage == nil) {
+            withAnimation {
+                self.alertMessage = "Your text is too long.\nTry reducing the font size."
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                withAnimation {
+                    self.alertMessage = nil
+                }
+            }
+        }
+    }
+    
     func update(font : UIFont, width: CGFloat) {
         self.font = font
         self.widthLimit = width
+        self.restrictWidth()
     }
     
     func update(font : UIFont) {
         self.font = font
+        self.restrictWidth()
     }
     
     func update(width: CGFloat) {
         self.widthLimit = width
+        self.restrictWidth()
     }
 }
 
