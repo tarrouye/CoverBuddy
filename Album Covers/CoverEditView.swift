@@ -9,29 +9,6 @@
 
 import SwiftUI
 
-struct SpicyStack<Content: View> : View {
-    let content: Content
-    
-    init(@ViewBuilder content: () -> Content) {
-        self.content = content()
-    }
-    
-    var body : some View {
-        GeometryReader { proxy in
-            if (proxy.size.width > proxy.size.height) {
-                HStack(alignment: .center) {
-                    self.content
-                }.frame(width: proxy.size.width, height: proxy.size.height)
-            } else {
-                VStack(alignment: .center) {
-                    self.content
-                }.frame(width: proxy.size.width, height: proxy.size.height)
-            }
-            
-        }
-    }
-}
-
 struct CoverEditView: View {
     @StateObject var model = CoverEditViewModel()
     
