@@ -14,19 +14,9 @@ struct MyTextField : View {
     @Binding var alignment: NSTextAlignment
 
     var body : some View {
-        HStack {
-            if (alignment == .right || alignment == .center) {
-                Spacer()
-            }
-            
-            TextField(placeholder, text: $textBindingManager.text)
-                .disableAutocorrection(true)
-                .multilineTextAlignment((alignment == .left) ? .leading : ((alignment == .right) ? .trailing : .center))
-                .background(textBindingManager.text.isEmpty ? Color.white.opacity(0.5) : Color.clear)
-            
-            if (alignment == .left || alignment == .center) {
-                Spacer()
-            }
-        }
+        TextField(placeholder, text: $textBindingManager.text)
+            .disableAutocorrection(true)
+            .multilineTextAlignment((alignment == .left) ? .leading : ((alignment == .right) ? .trailing : .center))
+            .background(textBindingManager.text.isEmpty ? Color.white.opacity(0.5) : Color.clear)
     }
 }
