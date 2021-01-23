@@ -23,18 +23,18 @@ Cover Buddy is built mostly to mess around with SwiftUI, but the app has an MVP 
 
 Library View         |  Collections View | Preset Carousel View | Editing View
 :-------------------------:|:-------------------------:|:-------------------------:|:------------------------:
-![Library View](https://tarrouye.net/portfolio/assets/coverbuddy/library_view.PNG)  |  ![Collections View](https://tarrouye.net/portfolio/assets/coverbuddy/collections_view.PNG) | ![Preset Selection](https://tarrouye.net/portfolio/assets/coverbuddy/preset_selection.PNG) | ![Editing View](https://tarrouye.net/portfolio/assets/coverbuddy/editing_view.PNG)
+![Library View](https://tarrouye.net/ios/coverbuddy/assets/library_view.png)  |  ![Collections View](https://tarrouye.net/ios/coverbuddy/assets/collections_view.png) | ![Preset Selection](https://tarrouye.net/ios/coverbuddy/assets/preset_selection.png) | ![Editing View](https://tarrouye.net/ios/coverbuddy/assets/editing_view.png)
 
 
 
 
 iPad Library View |  iPad Collections View | iPad Preset Carousel View 
 :-------------------------:|:-------------------------:|:-------------------------:
-![iPad Library View](https://tarrouye.net/portfolio/assets/coverbuddy/ipad_library_dark.png)  |  ![iPad Collections View](https://tarrouye.net/portfolio/assets/coverbuddy/ipad_collections_dark.png) | ![iPad Preset Selection](https://tarrouye.net/portfolio/assets/coverbuddy/ipad_preset_dark.png)
+![iPad Library View](https://tarrouye.net/ios/coverbuddy/assets/ipad_library_dark.png)  |  ![iPad Collections View](https://tarrouye.net/ios/coverbuddy/assets/ipad_collections_dark.png) | ![iPad Preset Selection](https://tarrouye.net/ios/coverbuddy/assets/ipad_preset_dark.png)
 
 Split Screen Support |  Slide Over Support 
 :-------------------------:|:-------------------------:
-![Split Screen](https://tarrouye.net/portfolio/assets/coverbuddy/ipad_split_screen.png)  |  ![Slide Over](https://tarrouye.net/portfolio/assets/coverbuddy/ipad_slide_over.png)  
+![Split Screen](https://tarrouye.net/ios/coverbuddy/assets/ipad_split_screen.png)  |  ![Slide Over](https://tarrouye.net/ios/coverbuddy/assets/ipad_slide_over.png)  
 
 
 ## Tech stack
